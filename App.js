@@ -26,115 +26,18 @@ import { useNavigation } from "@react-navigation/native";
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
-const BottomTabNavigator = () => {
-  const navigation = useNavigation();
-
-  const handleLogout = () => {
-    navigation.navigate("Login");
-  };
+const DrawerNavigator = () => {
   return (
-    <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-        tabBarShowLabel: false,
-        tabBarStyle: {
-          height: 60,
-        },
-      }}
-    >
-      <Tab.Screen
-        name="Homes"
-        component={HomeScreen}
-        options={{
-          tabBarIcon: ({ focused, color, size }) => (
-            <View style={styles.boxIcon}>
-              <MaterialCommunityIcons
-                name="home-account"
-                color={focused ? "black" : color}
-                size={size}
-              />
-            </View>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Cart"
-        component={Carts}
-        options={{
-          tabBarIcon: ({ focused, color, size }) => (
-            <View style={styles.boxIcon}>
-              <MaterialCommunityIcons
-                name="cart-arrow-right"
-                color={focused ? "black" : color}
-                size={size}
-              />
-            </View>
-          ),
-        }}
-      />
-
-      <Tab.Screen
-        name="AddProduct"
-        component={Add}
-        options={{
-          tabBarIcon: ({ focused, color, size }) => (
-            <View style={styles.boxIcon}>
-              <MaterialCommunityIcons
-                name="plus-box"
-                color={focused ? "black" : color}
-                size={size}
-              />
-            </View>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Nofitication"
-        component={Notifica}
-        options={{
-          tabBarIcon: ({ focused, color, size }) => (
-            <View style={styles.boxIcon}>
-              <MaterialCommunityIcons
-                name="bell"
-                color={focused ? "black" : color}
-                size={size}
-              />
-            </View>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Info"
-        component={Infomation}
-        options={{
-          tabBarIcon: ({ focused, color, size }) => (
-            <View style={styles.boxIcon}>
-              <MaterialCommunityIcons
-                name="account"
-                color={focused ? "black" : color}
-                size={size}
-              />
-            </View>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Logout"
-        component={Logouts}
-        options={{
-          tabBarIcon: ({ focused, color, size }) => (
-            <View style={styles.boxIcon}>
-              <MaterialCommunityIcons
-                name="logout"
-                color={focused ? "black" : color}
-                size={size}
-                onPress={handleLogout} // Gọi hàm handleLogout khi bấm vào nút Logout
-              />
-            </View>
-          ),
-        }}
-      />
-    </Tab.Navigator>
+    <Drawer.Navigator>
+      <Drawer.Screen name="HomeScreen" component={HomeScreen} />
+      <Drawer.Screen name="AddProduct" component={Add} />
+      <Drawer.Screen name="Notifica" component={Notifica} />
+      <Drawer.Screen name="Info" component={Infomation} />
+      <Drawer.Screen name="Cart" component={Carts} />
+      <Drawer.Screen name="Message" component={Messages} />
+      <Drawer.Screen name="Buy" component={Buys} />
+      <Drawer.Screen name="Logout" component={Logouts} />
+    </Drawer.Navigator>
   );
 };
 
@@ -142,7 +45,7 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Forgotpw" component={ForgotPassword} />
@@ -155,7 +58,7 @@ const App = () => {
         <Stack.Screen name="ForgotPassword" component={ForgotPass} />
         <Stack.Screen
           name="Home"
-          component={BottomTabNavigator} // Sử dụng BottomTabNavigator là một trong các màn hình
+          component={DrawerNavigator} // Sử dụng BottomTabNavigator là một trong các màn hình
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
