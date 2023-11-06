@@ -54,7 +54,7 @@ const Otpw = () => {
         const data = response.data;
         // Process the data as needed
         Alert.alert("Mã otp đúng");
-        navigation.navigate("Home");
+        navigation.navigate("Forgotpw");
       } else {
         // API call failed
         Alert.alert("API call failed");
