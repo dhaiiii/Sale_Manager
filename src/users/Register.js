@@ -122,107 +122,99 @@ function RegisterScreen() {
   };
 
   return (
-    <ImageBackground style={styles.img} source={require("./image/anh6.jpg")}>
-      <ScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.title}>Sign Up</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => setFirstName(text)}
-          value={firstName}
-          placeholder="firstname"
-        />
-        {firstNameError ? (
-          <Text style={styles.error}>{firstNameError}</Text>
-        ) : null}
+    // <ImageBackground style={styles.img} source={require("./image/anh6.jpg")}>
+    <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.title}>Sign Up</Text>
+      <TextInput
+        style={styles.input}
+        onChangeText={(text) => setFirstName(text)}
+        value={firstName}
+        placeholder="firstname"
+      />
+      {firstNameError ? (
+        <Text style={styles.error}>{firstNameError}</Text>
+      ) : null}
 
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => setLastName(text)}
-          value={lastName}
-          placeholder="lastName"
-        />
-        {lastNameError ? (
-          <Text style={styles.error}>{lastNameError}</Text>
-        ) : null}
+      <TextInput
+        style={styles.input}
+        onChangeText={(text) => setLastName(text)}
+        value={lastName}
+        placeholder="lastName"
+      />
+      {lastNameError ? <Text style={styles.error}>{lastNameError}</Text> : null}
 
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => setEmail(text)}
-          value={email}
-          placeholder="email"
-        />
-        {emailError ? <Text style={styles.error}>{emailError}</Text> : null}
+      <TextInput
+        style={styles.input}
+        onChangeText={(text) => setEmail(text)}
+        value={email}
+        placeholder="email"
+      />
+      {emailError ? <Text style={styles.error}>{emailError}</Text> : null}
 
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => setUsername(text)}
-          value={username}
-          placeholder="Username"
-        />
-        {usernameError ? (
-          <Text style={styles.error}>{usernameError}</Text>
-        ) : null}
+      <TextInput
+        style={styles.input}
+        onChangeText={(text) => setUsername(text)}
+        value={username}
+        placeholder="Username"
+      />
+      {usernameError ? <Text style={styles.error}>{usernameError}</Text> : null}
 
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-          placeholder="password"
-          secureTextEntry={true}
-        />
-        {passwordError ? (
-          <Text style={styles.error}>{passwordError}</Text>
-        ) : null}
+      <TextInput
+        style={styles.input}
+        onChangeText={(text) => setPassword(text)}
+        value={password}
+        placeholder="password"
+        secureTextEntry={true}
+      />
+      {passwordError ? <Text style={styles.error}>{passwordError}</Text> : null}
 
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => setRole(text)}
-          value={Role}
-          placeholder="Role"
-          // Sử dụng flex để tự động điều chỉnh bố trí
-        />
-        {RoleError ? <Text style={styles.error}>{RoleError}</Text> : null}
+      <TextInput
+        style={styles.input}
+        onChangeText={(text) => setRole(text)}
+        value={Role}
+        placeholder="Role"
+        // Sử dụng flex để tự động điều chỉnh bố trí
+      />
+      {RoleError ? <Text style={styles.error}>{RoleError}</Text> : null}
 
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => setNumberidentify(text)}
-          value={numberidentify}
-          placeholder="numberidentify"
-        />
-        {numberidentifyError ? (
-          <Text style={styles.error}>{numberidentifyError}</Text>
-        ) : null}
+      <TextInput
+        style={styles.input}
+        onChangeText={(text) => setNumberidentify(text)}
+        value={numberidentify}
+        placeholder="numberidentify"
+      />
+      {numberidentifyError ? (
+        <Text style={styles.error}>{numberidentifyError}</Text>
+      ) : null}
 
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => setAddresss(text)}
-          value={addresss}
-          placeholder="addresss"
-        />
-        {addresssError ? (
-          <Text style={styles.error}>{addresssError}</Text>
-        ) : null}
+      <TextInput
+        style={styles.input}
+        onChangeText={(text) => setAddresss(text)}
+        value={addresss}
+        placeholder="addresss"
+      />
+      {addresssError ? <Text style={styles.error}>{addresssError}</Text> : null}
 
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => setDateofbirth(text)}
-          value={dateofbirth}
-          placeholder="dateofbirth"
-        />
-        {dateofbirthError ? (
-          <Text style={styles.error}>{dateofbirthError}</Text>
-        ) : null}
+      <TextInput
+        style={styles.input}
+        onChangeText={(text) => setDateofbirth(text)}
+        value={dateofbirth}
+        placeholder="dateofbirth"
+      />
+      {dateofbirthError ? (
+        <Text style={styles.error}>{dateofbirthError}</Text>
+      ) : null}
 
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={() => {
-            handleRegister();
-          }}
-        >
-          <Text style={styles.buttonText}>Sign Up</Text>
-        </TouchableOpacity>
-      </ScrollView>
-    </ImageBackground>
+      <TouchableOpacity
+        style={styles.buttonContainer}
+        onPress={() => {
+          handleRegister();
+        }}
+      >
+        <Text style={styles.buttonText}>Sign Up</Text>
+      </TouchableOpacity>
+    </ScrollView>
+    // </ImageBackground>
   );
 }
 

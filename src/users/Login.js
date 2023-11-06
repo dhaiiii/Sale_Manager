@@ -43,7 +43,7 @@ function LoginScreen() {
     } else {
       try {
         const response = await axios.post(
-          "http://10.6.54.58:4000/users/authenticate",
+          "http://10.6.53.2:4000/users/authenticate",
           {
             username,
             password,
@@ -76,43 +76,43 @@ function LoginScreen() {
   };
 
   return (
-    <ImageBackground style={styles.img} source={require("./image/anh8.png")}>
-      <View style={styles.container}>
-        <Text style={styles.title}>Login</Text>
+    // <ImageBackground style={styles.img} source={require("./image/anh8.png")}>
+    <View style={styles.container}>
+      <Text style={styles.title}>Login</Text>
 
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => setUsername(text)}
-          value={username}
-          placeholder="Username"
-        />
-        {usernameError && <Text style={styles.error}>{usernameError}</Text>}
+      <TextInput
+        style={styles.input}
+        onChangeText={(text) => setUsername(text)}
+        value={username}
+        placeholder="Username"
+      />
+      {usernameError && <Text style={styles.error}>{usernameError}</Text>}
 
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-          placeholder="Password"
-          secureTextEntry={true}
-        />
-        {passwordError && <Text style={styles.error}>{passwordError}</Text>}
+      <TextInput
+        style={styles.input}
+        onChangeText={(text) => setPassword(text)}
+        value={password}
+        placeholder="Password"
+        secureTextEntry={true}
+      />
+      {passwordError && <Text style={styles.error}>{passwordError}</Text>}
 
-        <View style={styles.row}>
-          <Text>Remember me</Text>
-          <TouchableOpacity onPress={handleForgotPassW}>
-            <Text style={styles.forgotPassword}>Forgot the password</Text>
-          </TouchableOpacity>
-        </View>
-
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Log in</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={handleRegister}>
-          <Text style={styles.registerLink}>Sign up</Text>
+      <View style={styles.row}>
+        <Text>Remember me</Text>
+        <TouchableOpacity onPress={handleForgotPassW}>
+          <Text style={styles.forgotPassword}>Forgot the password</Text>
         </TouchableOpacity>
       </View>
-    </ImageBackground>
+
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Text style={styles.buttonText}>Log in</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={handleRegister}>
+        <Text style={styles.registerLink}>Sign up</Text>
+      </TouchableOpacity>
+    </View>
+    // </ImageBackground>
   );
 }
 

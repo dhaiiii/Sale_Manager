@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
 import axios from "axios";
 
-const Otp = () => {
+const Otpw = () => {
   const model = {};
   const route = useRoute();
   const navigation = useNavigation();
@@ -43,10 +43,9 @@ const Otp = () => {
     });
     try {
       const response = await axios.post(
-        "http://10.6.54.58:4000/users/verifyotp",
+        "http://10.6.53.2:4000/users/verifyotp",
         {
           username: us,
-          OtpCode: enteredOtp,
         }
       );
 
@@ -185,7 +184,7 @@ const Otp = () => {
   );
 };
 
-export default Otp;
+export default Otpw;
 
 const styles = StyleSheet.create({
   conatainer: {

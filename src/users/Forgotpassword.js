@@ -14,23 +14,23 @@ import axios from "axios";
 function ForgotPass() {
   const navigation = useNavigation();
 
-  const [username, setUsername] = useState("");
-  const [usernameError, setUsernameError] = useState("");
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
 
   const handleForgotPass = async () => {
-    setUsernameError("");
+    setEmailError("");
 
     try {
       const response = await axios.post(
         // "http://10.6.53.165:4000/users/register",
         {
-          username,
+          email,
         }
       );
       console.log(response.data);
       if (response.status === 200) {
         Alert.alert("Mã otp đã được gửi");
-        navigation.navigate("Otp");
+        navigation.navigate("Otpfgpw");
       }
     } catch (error) {
       console.log("Mã otp được gửi thất bại");
@@ -39,28 +39,29 @@ function ForgotPass() {
   };
 
   return (
-    <ImageBackground style={styles.img} source={require("./image/anh6.jpg")}>
-      <View style={styles.container}>
-        <Text style={styles.title}>Forgot Passwords</Text>
+    // <ImageBackground
+    //   style={styles.img}
+    //   source={require("./Forgotpassword/image/anh6.jpg")}
+    // >
+    <View style={styles.container}>
+      <Text style={styles.title}>Forgot Passwords</Text>
 
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => setUsername(text)}
-          value={username}
-          placeholder="username"
-        />
-        {usernameError ? (
-          <Text style={styles.error}>{usernameError}</Text>
-        ) : null}
+      <TextInput
+        style={styles.input}
+        onChangeText={(text) => setEmail(text)}
+        value={email}
+        placeholder="email"
+      />
+      {emailError ? <Text style={styles.error}>{emailError}</Text> : null}
 
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={handleForgotPass}
-        >
-          <Text style={styles.buttonText}>Send</Text>
-        </TouchableOpacity>
-      </View>
-    </ImageBackground>
+      <TouchableOpacity
+        style={styles.buttonContainer}
+        onPress={handleForgotPass}
+      >
+        <Text style={styles.buttonText}>Send</Text>
+      </TouchableOpacity>
+    </View>
+    // </ImageBackground>
   );
 }
 

@@ -54,40 +54,38 @@ function ForgotPassword() {
   };
 
   return (
-    <ImageBackground style={styles.img} source={require("./image/anh6.jpg")}>
-      <View style={styles.container}>
-        <Text style={styles.title}>Forgot Password</Text>
+    // <ImageBackground style={styles.img} source={require("./image/anh6.jpg")}>
+    <View style={styles.container}>
+      <Text style={styles.title}>Forgot Password</Text>
 
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-          placeholder="Password"
-          secureTextEntry={true}
-        />
-        {passwordError ? (
-          <Text style={styles.error}>{passwordError}</Text>
-        ) : null}
+      <TextInput
+        style={styles.input}
+        onChangeText={(text) => setPassword(text)}
+        value={password}
+        placeholder="Password"
+        secureTextEntry={true}
+      />
+      {passwordError ? <Text style={styles.error}>{passwordError}</Text> : null}
 
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => setPasswordAgain(text)}
-          value={passwordAgain}
-          placeholder="Re-enter Password"
-          secureTextEntry={true}
-        />
-        {passwordAgainError ? (
-          <Text style={styles.error}>{passwordAgainError}</Text>
-        ) : null}
+      <TextInput
+        style={styles.input}
+        onChangeText={(text) => setPasswordAgain(text)}
+        value={passwordAgain}
+        placeholder="Re-enter Password"
+        secureTextEntry={true}
+      />
+      {passwordAgainError ? (
+        <Text style={styles.error}>{passwordAgainError}</Text>
+      ) : null}
 
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={handleForgotPassword}
-        >
-          <Text style={styles.buttonText}>Reset Password</Text>
-        </TouchableOpacity>
-      </View>
-    </ImageBackground>
+      <TouchableOpacity
+        style={styles.buttonContainer}
+        onPress={handleForgotPassword}
+      >
+        <Text style={styles.buttonText}>Reset Password</Text>
+      </TouchableOpacity>
+    </View>
+    // </ImageBackground>
   );
 }
 

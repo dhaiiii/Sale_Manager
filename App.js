@@ -4,22 +4,23 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import LoginScreen from "./src/Login";
-import RegisterScreen from "./src/Register";
-import HomeScreen from "./src/Home";
-import ForgotPassword from "./src/Forgotpw";
-import Add from "./src/AddProduct";
-import Searchs from "./src/Search";
-import Logouts from "./src/Logout";
-import Infomation from "./src/Info";
-import Notifica from "./src/Notification";
-import Carts from "./src/Cart";
-import ViewInfo from "./src/ViewInfo";
-import ProductDetail from "./src/ProductDetail";
-import Messages from "./src/Message";
-import Buys from "./src/Buy";
-import OTPScreen from "./src/Otp";
-import ForgotPass from "./src/Forgotpassword";
+import LoginScreen from "./src/users/Login";
+import RegisterScreen from "./src/users/Register";
+import HomeScreen from "./src/users/Home";
+import ForgotPassword from "./src/users/Forgotpw";
+import Add from "./src/admin/AddProduct";
+import Searchs from "./src/users/Search";
+import Logouts from "./src/users/Logout";
+import Infomation from "./src/users/Info";
+import Notifica from "./src/users/Notification";
+import Carts from "./src/users/Cart";
+// import ViewInfo from "./src/ViewInfo";
+import ProductDetail from "./src/users/ProductDetail";
+import Messages from "./src/users/Message";
+import Buys from "./src/users/Buy";
+import OTPScreen from "./src/users/Otp";
+import Otpw from "./src/users/Otpfgpw";
+import ForgotPass from "./src/users/Forgotpassword";
 import { View, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -37,8 +38,6 @@ const DrawerNavigator = () => {
       <Drawer.Screen name="Notifica" component={Notifica} />
       <Drawer.Screen name="Info" component={Infomation} />
       <Drawer.Screen name="Cart" component={Carts} />
-      <Drawer.Screen name="ViewInfo" component={ViewInfo} />
-      <Drawer.Screen name="ProductDetail" component={ProductDetail} />
       <Drawer.Screen name="Message" component={Messages} />
       <Drawer.Screen name="Buy" component={Buys} />
       <Drawer.Screen name="Logout" component={Logouts} />
@@ -159,16 +158,17 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Forgotpw" component={ForgotPassword} />
         <Stack.Screen name="ProductDetail" component={ProductDetail} />
-        <Stack.Screen name="ViewInfo" component={ViewInfo} />
+        {/* <Stack.Screen name="ViewInfo" component={ViewInfo} /> */}
         <Stack.Screen name="Search" component={Searchs} />
         <Stack.Screen name="Message" component={Messages} />
         <Stack.Screen name="Buy" component={Buys} />
         <Stack.Screen name="Otp" component={OTPScreen} />
+        <Stack.Screen name="Otpfgpw" component={Otpw} />
         <Stack.Screen name="ForgotPassword" component={ForgotPass} />
         <Stack.Screen
           name="Home"
