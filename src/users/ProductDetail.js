@@ -1,9 +1,6 @@
 import React from "react";
-import { Text, View, StyleSheet, TextInput, Image, Button } from "react-native";
-import Carts from "./Cart";
-import Messages from "./Message";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NavigationContainer } from "@react-navigation/native";
+import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const ProductDetail = ({ route, navigation }) => {
   const { productDetailData } = route.params;
@@ -11,16 +8,17 @@ const ProductDetail = ({ route, navigation }) => {
   const handleCart = () => {
     navigation.navigate("Cart");
   };
-  const handleMessage = () => {
-    navigation.navigate("Message");
-  };
+
   const handleBuy = () => {
     navigation.navigate("Buy", { buyData: productDetailData });
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Chi tiết sản phẩm</Text>
+      <Image
+        source={{ uri: productDetailData.Image }}
+        style={styles.productDetailImage}
+      />
       <View style={styles.productDetailContainer}>
         <Text style={styles.productDetailText}>
           Tên sản phẩm: {productDetailData.name}
@@ -34,69 +32,61 @@ const ProductDetail = ({ route, navigation }) => {
         <Text style={styles.productDetailText}>
           Giới thiệu sản phẩm:{"\n"} {productDetailData.info}
         </Text>
-        <Image
-          source={{ uri: productDetailData.Image }}
-          style={styles.productDetailImage}
-        />
-        <View style={styles.btn2}>
-          <View style={styles.btn1}>
-            <Button
-              onPress={handleMessage}
-              title="nhắn tin"
-              style={styles.btn}
-            />
-          </View>
-          <View style={styles.btn1}>
-            <Button onPress={handleCart} title="giỏ hàng" style={styles.btn} />
-          </View>
-          <View style={styles.btn1}>
-            <Button onPress={handleBuy} title="mua hàng" style={styles.btn} />
-          </View>
-        </View>
+      </View>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.cartButton} onPress={handleCart}>
+          <Text style={styles.buttonText}>Thêm vào giỏ hàng</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.buyButton} onPress={handleBuy}>
+          <Text style={styles.buttonText}>Mua ngay</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 };
 
-export default ProductDetail;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
     backgroundColor: "white",
-  },
-  title: {
-    marginLeft: 10,
-    color: "red",
-    fontSize: 20,
-    marginLeft: 120,
   },
   productDetailContainer: {
-    borderWidth: 1,
-    borderColor: "green",
-    borderRadius: 10,
     padding: 10,
-    margin: 10,
     backgroundColor: "white",
-    height: 720,
-  },
-  productText: {
-    fontSize: 16,
-    marginBottom: 10,
+    flex: 1,
   },
   productDetailImage: {
-    top: 30,
     width: "100%",
-    height: 200,
+    height: 300,
   },
-  btn1: {
-    top: 350,
-    flex: 1, // Chia đều khoảng trống cho các nút
-    margin: 5,
+  productDetailText: {
+    fontSize: 16,
+    marginTop: 10,
   },
-  btn2: {
-    flexDirection: "row", // Xếp theo hàng ngang
-    justifyContent: "space-between", // Canh đều các phần tử
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 10,
+  },
+  cartButton: {
+    flex: 1,
+    backgroundColor: "#f50057",
+    borderRadius: 10,
+    padding: 10,
+    marginRight: 10,
+  },
+  buyButton: {
+    flex: 1,
+    backgroundColor: "#f50057",
+    borderRadius: 10,
+    padding: 10,
+  },
+  buttonText: {
+    color: "white",
+    textAlign: "center",
+    fontWeight: "bold",
   },
 });
+
+export default ProductDetail;

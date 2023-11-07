@@ -45,7 +45,7 @@ const Otpw = () => {
       const response = await axios.post(
         "http://10.6.53.2:4000/users/verifyotp",
         {
-          username: us,
+          email,
         }
       );
 

@@ -78,7 +78,7 @@ function LoginScreen() {
   return (
     // <ImageBackground style={styles.img} source={require("./image/anh8.png")}>
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      <Text style={styles.title}>Signin</Text>
 
       <TextInput
         style={styles.input}
