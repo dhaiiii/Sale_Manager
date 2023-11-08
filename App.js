@@ -88,7 +88,7 @@ const BottomTabNavigator = () => {
         }}
       />
 
-      <Tab.Screen
+      {/* <Tab.Screen
         name="AddProduct"
         component={Add}
         options={{
@@ -96,6 +96,21 @@ const BottomTabNavigator = () => {
             <View style={styles.boxIcon}>
               <MaterialCommunityIcons
                 name="plus-box"
+                color={focused ? "black" : color}
+                size={size}
+              />
+            </View>
+          ),
+        }}
+      /> */}
+      <Tab.Screen
+        name="Info"
+        component={Infomation}
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <View style={styles.boxIcon}>
+              <MaterialCommunityIcons
+                name="account"
                 color={focused ? "black" : color}
                 size={size}
               />
@@ -118,21 +133,7 @@ const BottomTabNavigator = () => {
           ),
         }}
       />
-      <Tab.Screen
-        name="Info"
-        component={Infomation}
-        options={{
-          tabBarIcon: ({ focused, color, size }) => (
-            <View style={styles.boxIcon}>
-              <MaterialCommunityIcons
-                name="account"
-                color={focused ? "black" : color}
-                size={size}
-              />
-            </View>
-          ),
-        }}
-      />
+
       <Tab.Screen
         name="Logout"
         component={Logouts}
@@ -157,7 +158,7 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Forgotpw" component={ForgotPassword} />

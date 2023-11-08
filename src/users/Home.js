@@ -128,6 +128,7 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 30,
     flex: 1,
     backgroundColor: "white",
   },
@@ -142,6 +143,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   heading: {
+    marginTop: 150,
     fontSize: 24,
     fontWeight: "bold",
     marginLeft: 90,

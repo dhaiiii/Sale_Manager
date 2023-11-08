@@ -60,7 +60,9 @@ const Add = ({ navigation, route }) => {
 
   return (
     <View>
-      <Text style={{ marginLeft: 170, color: "red", fontSize: 20 }}>
+      <Text
+        style={{ marginLeft: 170, color: "red", fontSize: 20, marginTop: 30 }}
+      >
         Thêm sp
       </Text>
       <View style={styles.productContainer}>

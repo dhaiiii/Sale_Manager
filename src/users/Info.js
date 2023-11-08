@@ -45,7 +45,9 @@ function Infomation(route) {
   };
   return (
     <View>
-      <Text style={{ marginLeft: 120, color: "red", fontSize: 20 }}>
+      <Text
+        style={{ marginLeft: 120, color: "red", fontSize: 20, marginTop: 30 }}
+      >
         Thông tin cá nhân
       </Text>
       <View style={styles.productContainer}>
