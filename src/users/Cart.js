@@ -1,7 +1,10 @@
 import React from "react";
 import { View, Text, FlatList, Button, StyleSheet, Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const Cart = () => {
+  const navigation = useNavigation();
+
   const cartItems = [
     {
       id: "1",
@@ -38,20 +41,29 @@ const Cart = () => {
         data={cartItems}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View style={styles.cartItem}>
-            <Image source={{ uri: item.Image }} style={styles.itemImage} />
-            <View style={styles.itemInfo}>
-              <Text style={styles.itemName}>{item.name}</Text>
-              <Text style={styles.itemAddress}>{item.address}</Text>
-              <Text style={styles.itemPrice}>${item.price}</Text>
+          <FlatList
+            onPress={() => {
+              navigation.navigate("ProductDetail");
+            }}
+          >
+            <View style={styles.cartItem}>
+              <Image source={{ uri: item.Image }} style={styles.itemImage} />
+              <View style={styles.itemInfo}>
+                <Text style={styles.itemName}>{item.name}</Text>
+                <Text style={styles.itemAddress}>{item.address}</Text>
+                <Text style={styles.itemPrice}>${item.price}</Text>
+              </View>
             </View>
-          </View>
+          </FlatList>
         )}
       />
       <Text style={styles.totalPrice}>Total: ${totalPrice}</Text>
       <Button
         title="Checkout"
-        onPress={() => console.log("Checkout button pressed")}
+        onPress={() => {
+          navigation.navigate("Buy");
+          console.log("Checkout button pressed");
+        }}
         color="#007bff"
       />
     </View>
