@@ -9,6 +9,7 @@ import {
   TextInput,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
 
 const sampleData = [
   {
@@ -85,6 +86,9 @@ const HomeScreen = () => {
   const handleSearch = () => {
     // Implement your search logic here
   };
+  // try {
+  //   const response = await axios.post("");
+  // } catch (error) {}
 
   return (
     <View style={styles.container}>

@@ -1,72 +1,126 @@
-import React, { useState } from "react";
-import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import React from "react";
+import { View, Text, FlatList, Button, StyleSheet, Image } from "react-native";
 
-const Cart = ({ navigation }) => {
-  const [cartItem, setCartItem] = useState([]);
+const Cart = () => {
+  const cartItems = [
+    {
+      id: "1",
+      Image: "https://laptop88.vn/media/news/2910_hinhanhmaytinhxachtay4.jpg",
+      name: "Laptop siêu gọn",
+      address: "Hà Nội",
+      price: 10,
+    },
+    {
+      id: "2",
+      Image:
+        "https://product.hstatic.net/1000311467/product/au6-18_6bb873d905414036bd60c6af4390f7a2_master.jpg",
+      name: "Quần âu thời trang",
+      address: "Hà Nội",
+      price: 15,
+    },
+    {
+      id: "3",
+      Image:
+        "https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg",
+      name: "Áo phông siêu đẹp",
+      address: "Hà Nội",
+      price: 20,
+    },
+  ];
+
+  // Calculate the total price
+  const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
 
   return (
-    <View>
-      <Text style={styles.heading}>
-        {cartItem?.length > 0
-          ? `You Have ${cartItem?.length} Item Left In Your Cart`
-          : "OOPS Your Cart Is EMPTY !"}
-      </Text>
-      {cartItem?.length > 0 && (
-        <>
-          {/* <ScrollView>
-            {cartItem?.map((item) => (
-              <CartItem item={item} key={item._id} />
-            ))}
-          </ScrollView> */}
-          <View>
-            <PriceTable title={"Price"} price={999} />
-            <PriceTable title={"Tax"} price={1} />
-            <PriceTable title={"Shipping"} price={1} />
-            <View style={styles.grandTotal}>
-              <PriceTable title={"Grand Total"} price={1001} />
+    <View style={styles.container}>
+      <Text style={styles.header}>Your Shopping Cart</Text>
+      <FlatList
+        data={cartItems}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.cartItem}>
+            <Image source={{ uri: item.Image }} style={styles.itemImage} />
+            <View style={styles.itemInfo}>
+              <Text style={styles.itemName}>{item.name}</Text>
+              <Text style={styles.itemAddress}>{item.address}</Text>
+              <Text style={styles.itemPrice}>${item.price}</Text>
             </View>
-            <TouchableOpacity
-              style={styles.btnCheckout}
-              onPress={() => navigation.navigate("checkout")}
-            >
-              <Text style={styles.btnCheckoutText}>CHECKOUT</Text>
-            </TouchableOpacity>
           </View>
-        </>
-      )}
+        )}
+      />
+      <Text style={styles.totalPrice}>Total: ${totalPrice}</Text>
+      <Button
+        title="Checkout"
+        onPress={() => console.log("Checkout button pressed")}
+        color="#007bff"
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  heading: {
-    textAlign: "center",
-    color: "green",
+  container: {
     marginTop: 10,
+    flex: 1,
+    padding: 16,
+    backgroundColor: "#f8f8f8",
   },
-  grandTotal: {
-    borderWidth: 1,
-    borderColor: "lightgray",
-    backgroundColor: "#ffffff",
-    padding: 5,
-    margin: 5,
-    marginHorizontal: 20,
+  itemImage: {
+    height: 100,
+    width: 100,
   },
-  btnCheckout: {
-    marginTop: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    height: 40,
-    backgroundColor: "#000000",
-    width: "90%",
-    marginHorizontal: 20,
-    borderRadius: 20,
+  itemInfo: {
+    flexDirection: "column",
   },
-  btnCheckoutText: {
-    color: "#ffffff",
+  header: {
+    fontSize: 28,
     fontWeight: "bold",
+    marginBottom: 20,
+    color: "#333",
+  },
+  cartItem: {
+    flexDirection: "row",
+    marginBottom: 12,
+    padding: 10,
+    backgroundColor: "#fff",
+    borderRadius: 8,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 3,
+  },
+  itemImage: {
+    height: 100,
+    width: 100,
+    borderRadius: 8,
+  },
+  itemInfo: {
+    flexDirection: "column",
+    justifyContent: "space-between", // Duy trì khoảng cách giữa các text
+    marginLeft: 10, // Khoảng cách giữa ảnh và thông tin sản phẩm
+  },
+  itemName: {
     fontSize: 18,
+    fontWeight: "bold",
+    color: "#333",
+  },
+  itemAddress: {
+    fontSize: 14,
+    color: "#555",
+  },
+  itemPrice: {
+    fontSize: 18,
+    color: "#555",
+  },
+  totalPrice: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginTop: 16,
+    color: "#333",
   },
 });
 

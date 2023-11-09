@@ -5,7 +5,9 @@ import { useNavigation } from "@react-navigation/native";
 const ProductDetail = ({ route, navigation }) => {
   const { productDetailData } = route.params;
 
-  const handleCart = () => {};
+  const handleCart = () => {
+    navigation.navigate("Cart");
+  };
 
   const handleBuy = () => {
     navigation.navigate("Buy", { buyData: productDetailData });
