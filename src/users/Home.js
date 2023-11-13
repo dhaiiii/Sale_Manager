@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -7,6 +7,8 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
+  ScrollView,
+  Dimensions,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
@@ -41,6 +43,7 @@ const sampleData = [
     name: "Áo mùa đông",
     price: "100.000 VND",
     address: "Hà Nội",
+    info: "Tm Luxury được thành lập năm 2012 với cửa hàng tại địa chỉ tại 120A Lê Văn Lương, Tân Hưng, Quận 7 TPHCM. Cho đến nay, sau 7 năm trong lĩnh vực kinh doanh thời trang nam, Tm đã dần khẳng định được vị thế của mình và được giới trẻ Sài Thành vô cùng yêu thích. Shop bán quần áo TM có đa các mặt hàng thời trang cao cấp cho nam giới như quần jean nam, quần jogger, áo khoác nam, áo sơ mi nam, phụ kiện giày thể thao,…đủ loại đủ size số phù hợp với nhiều đối tượng. Bạn mua hàng của Tm một lần rồi bạn sẽ thật khó có thể tìm được Shop thời trang nam tại Quận Phú Nhuận TPHCM nào uy tín và chất như Tm shop.",
     Image:
       "https://vn-test-11.slatic.net/original/8ad66705b979179eb3e0dc2749db75b5.jpg",
   },
@@ -78,10 +81,30 @@ const sampleData = [
   },
 ];
 
+const { width: ScreenWidth } = Dimensions.get("window");
 const HomeScreen = () => {
   const [dssp, setDssp] = useState(sampleData);
+  const [bnData, setBnData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const navigation = useNavigation();
+
+  useEffect(() => {
+    const bannerData = [
+      {
+        id: "1",
+        image: require("../image/banner-2-1400x630.jpg"),
+      },
+      {
+        id: "2",
+        image: require("../image/banner-thoi-trang-nam-dep-tm-luxury.jpg"),
+      },
+      {
+        id: "3",
+        image: require("../image/Mau-banner-quang-cao-dep-1.png"),
+      },
+    ];
+    setBnData(bannerData);
+  }, []);
 
   const handleSearch = () => {
     // Implement your search logic here
@@ -92,7 +115,8 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Danh sách sản phẩm</Text>
+      {/* <Text style={styles.heading}>Danh sách sản phẩm</Text> */}
+
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.searchInput}
@@ -105,9 +129,47 @@ const HomeScreen = () => {
         </TouchableOpacity>
       </View>
 
+      <ScrollView
+        horizontal
+        autoplay={true}
+        contentContainerStyle={{
+          width: ScreenWidth * bnData.length,
+          height: 400,
+        }}
+      >
+        {bnData.map((item) => (
+          <Image
+            key={item.id}
+            source={item.image}
+            resizeMode="stretch"
+            style={styles.bannerImage}
+          />
+        ))}
+      </ScrollView>
+
+      <View style={styles.banner}>
+        <Image
+          source={require("../image/banner-thoi-trang-nam-dep-tm-luxury.jpg")}
+          style={styles.bannerImage}
+        />
+        <Image
+          source={require("../image/Mau-banner-quang-cao-dep-1.png")}
+          style={styles.bannerImage}
+        />
+        <Image
+          source={require("../image/banner-2-1400x630.jpg")}
+          style={styles.bannerImage}
+        />
+        <Image
+          source={require("../image/tt4-1024x406.png")}
+          style={styles.bannerImage}
+        />
+      </View>
+
       <FlatList
         data={dssp}
         keyExtractor={(item) => item.id}
+        numColumns={2} // Set the number of columns to 2
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => {
@@ -121,7 +183,7 @@ const HomeScreen = () => {
             <View style={styles.productInfo}>
               <Text style={styles.productName}>{item.name}</Text>
               <Text style={styles.productPrice}>{item.price}</Text>
-              <Text style={styles.productAddress}>{item.address}</Text>
+              {/* <Text style={styles.productAddress}>{item.address}</Text> */}
             </View>
           </TouchableOpacity>
         )}
@@ -136,8 +198,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
-  productContainer: {
+  banner: {
     flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 10,
+  },
+  bannerImage: {
+    flex: 1,
+    height: 150,
+    borderRadius: 10,
+    marginHorizontal: 5,
+    resizeMode: "cover", // This ensures that the image covers the entire container
+  },
+  productContainer: {
+    flexDirection: "column",
     alignItems: "center",
     borderWidth: 1,
     borderColor: "#e4e4e4",
@@ -145,6 +219,8 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 10,
     backgroundColor: "white",
+    flex: 1, // This allows the product container to take up the available space
+    maxWidth: "50%", // Maximum width of 50% to ensure two products in a row
   },
   heading: {
     marginTop: 150,

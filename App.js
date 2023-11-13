@@ -88,7 +88,7 @@ const BottomTabNavigator = () => {
         }}
       />
 
-      {/* <Tab.Screen
+      <Tab.Screen
         name="AddProduct"
         component={Add}
         options={{
@@ -102,7 +102,7 @@ const BottomTabNavigator = () => {
             </View>
           ),
         }}
-      /> */}
+      />
       <Tab.Screen
         name="Info"
         component={Infomation}

@@ -41,20 +41,14 @@ const Cart = () => {
         data={cartItems}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <FlatList
-            onPress={() => {
-              navigation.navigate("ProductDetail");
-            }}
-          >
-            <View style={styles.cartItem}>
-              <Image source={{ uri: item.Image }} style={styles.itemImage} />
-              <View style={styles.itemInfo}>
-                <Text style={styles.itemName}>{item.name}</Text>
-                <Text style={styles.itemAddress}>{item.address}</Text>
-                <Text style={styles.itemPrice}>${item.price}</Text>
-              </View>
+          <View style={styles.cartItem}>
+            <Image source={{ uri: item.Image }} style={styles.itemImage} />
+            <View style={styles.itemInfo}>
+              <Text style={styles.itemName}>{item.name}</Text>
+              <Text style={styles.itemAddress}>{item.address}</Text>
+              <Text style={styles.itemPrice}>${item.price}</Text>
             </View>
-          </FlatList>
+          </View>
         )}
       />
       <Text style={styles.totalPrice}>Total: ${totalPrice}</Text>
@@ -80,9 +74,12 @@ const styles = StyleSheet.create({
   itemImage: {
     height: 100,
     width: 100,
+    borderRadius: 8,
   },
   itemInfo: {
     flexDirection: "column",
+    justifyContent: "space-between",
+    marginLeft: 10,
   },
   header: {
     fontSize: 28,
@@ -104,16 +101,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 2,
     elevation: 3,
-  },
-  itemImage: {
-    height: 100,
-    width: 100,
-    borderRadius: 8,
-  },
-  itemInfo: {
-    flexDirection: "column",
-    justifyContent: "space-between", // Duy trì khoảng cách giữa các text
-    marginLeft: 10, // Khoảng cách giữa ảnh và thông tin sản phẩm
   },
   itemName: {
     fontSize: 18,

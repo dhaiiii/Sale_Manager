@@ -17,17 +17,17 @@ function LoginScreen() {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [usernameError, setUsernameError] = useState([]);
-  const [passwordError, setPasswordError] = useState([]);
+  const [usernameError, setUsernameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const refreshData = () => {
     setUsername("");
     setPassword("");
   };
-  const ROLES = {
-    USER: "user",
-    ADMIN: "admin",
-  };
+  // const ROLES = {
+  //   USER: "user",
+  //   ADMIN: "admin",
+  // };
 
   const handleLogin = async () => {
     setUsernameError([]);
@@ -43,7 +43,7 @@ function LoginScreen() {
     } else {
       try {
         const response = await axios.post(
-          "http://10.6.53.2:4000/users/authenticate",
+          "http://0.0.0.0:4000/users/authenticate",
           {
             username,
             password,

@@ -43,7 +43,7 @@ const Otp = () => {
     });
     try {
       const response = await axios.post(
-        "http://10.6.53.2:4000/users/verifyotp",
+        "http://10.6.53.47:4000/users/verifyotp",
         {
           username: us,
           OtpCode: enteredOtp,

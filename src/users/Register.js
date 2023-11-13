@@ -16,52 +16,32 @@ import { Alert } from "react-native";
 function RegisterScreen() {
   const navigation = useNavigation();
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [numberidentify, setNumberidentify] = useState("");
-  const [addresss, setAddresss] = useState("");
-  const [dateofbirth, setDateofbirth] = useState("");
-  const [Role, setRole] = useState("");
+  const [passwordAgain, setPasswordAgain] = useState("");
 
-  const [firstNameError, setFirstNameError] = useState("");
-  const [lastNameError, setLastNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [numberidentifyError, setNumberidentifyError] = useState("");
-  const [addresssError, setAddresssError] = useState("");
-  const [dateofbirthError, setDateofbirthError] = useState("");
-  const [RoleError, setRoleError] = useState("");
+  const [passwordAgainError, setPasswordAgainError] = useState("");
 
   const handleRegister = () => {
-    setFirstNameError("");
-    setLastNameError("");
     setEmailError("");
-    setNumberidentify("");
-    setAddresssError("");
-    setDateofbirthError("");
     setUsernameError("");
     setPasswordError("");
-    setRoleError("");
+    setPasswordAgainError("");
 
     const handleRegisters = async () => {
       console.log("handel register");
       try {
         const response = await axios.post(
-          "http://10.6.44.58:4000/users/register",
+          "http://10.6.53.47:4000/users/register",
           {
-            firstName,
-            lastName,
             email,
             username,
             password,
-            numberidentify,
-            addresss,
-            dateofbirth,
-            Role,
+            // passwordAgain,
           }
         );
         console.log(response.data);
@@ -76,12 +56,6 @@ function RegisterScreen() {
     };
     const emailRegex = /^[a-zA-Z0-9._-]+@gmail\.com$/;
 
-    if (firstName.length < 1) {
-      setFirstNameError("Tên không được ít hơn 1 ký tự");
-    }
-    if (lastName.length < 1) {
-      setLastNameError("Họ không được ít hơn 1 ký tự");
-    }
     if (!emailRegex.test(email)) {
       setEmailError("Email phải có định dạng email và đuôi @gmail.com");
     }
@@ -91,31 +65,10 @@ function RegisterScreen() {
     if (password.length < 6) {
       setPasswordError("Mật khẩu phải có ít nhất 6 ký tự");
     }
-    if (numberidentify.length < 6) {
+    if (passwordAgain != password) {
       setNumberidentifyError("Vui lòng nhập ít nhất 6 ký tự");
     }
-    if (Role.length < 1) {
-      setRoleError("Vui lòng nhập ít nhất 1 ký tự");
-    }
-    if (addresss.length < 1) {
-      setAddresssError("ko dc để trống");
-    }
-    if (dateofbirth.length < 1) {
-      setDateofbirthError("ko dc để trống");
-    }
-
-    if (
-      firstName &&
-      lastName &&
-      email &&
-      username &&
-      password &&
-      numberidentify &&
-      addresss &&
-      dateofbirth &&
-      Role &&
-      emailRegex.test(email)
-    ) {
+    if (email && username && password && emailRegex.test(email)) {
       console.log("register 123");
       handleRegisters(); // Thêm dấu ngoặc tròn để gọi hàm
     }
@@ -125,25 +78,6 @@ function RegisterScreen() {
     <ImageBackground style={styles.img} source={require("../image/anh6.jpg")}>
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.title}>Sign Up</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => setFirstName(text)}
-          value={firstName}
-          placeholder="firstname"
-        />
-        {firstNameError ? (
-          <Text style={styles.error}>{firstNameError}</Text>
-        ) : null}
-
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => setLastName(text)}
-          value={lastName}
-          placeholder="lastName"
-        />
-        {lastNameError ? (
-          <Text style={styles.error}>{lastNameError}</Text>
-        ) : null}
 
         <TextInput
           style={styles.input}
@@ -176,41 +110,13 @@ function RegisterScreen() {
 
         <TextInput
           style={styles.input}
-          onChangeText={(text) => setRole(text)}
-          value={Role}
-          placeholder="Role"
-          // Sử dụng flex để tự động điều chỉnh bố trí
+          onChangeText={(text) => setPasswordAgain(text)}
+          value={passwordAgain}
+          placeholder="passwordAgain"
+          secureTextEntry={true}
         />
-        {RoleError ? <Text style={styles.error}>{RoleError}</Text> : null}
-
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => setNumberidentify(text)}
-          value={numberidentify}
-          placeholder="numberidentify"
-        />
-        {numberidentifyError ? (
-          <Text style={styles.error}>{numberidentifyError}</Text>
-        ) : null}
-
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => setAddresss(text)}
-          value={addresss}
-          placeholder="addresss"
-        />
-        {addresssError ? (
-          <Text style={styles.error}>{addresssError}</Text>
-        ) : null}
-
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => setDateofbirth(text)}
-          value={dateofbirth}
-          placeholder="dateofbirth"
-        />
-        {dateofbirthError ? (
-          <Text style={styles.error}>{dateofbirthError}</Text>
+        {passwordAgainError ? (
+          <Text style={styles.error}>{passwordAgainError}</Text>
         ) : null}
 
         <TouchableOpacity
@@ -222,7 +128,6 @@ function RegisterScreen() {
           <Text style={styles.buttonText}>Sign Up</Text>
         </TouchableOpacity>
       </ScrollView>
-      //{" "}
     </ImageBackground>
   );
 }
