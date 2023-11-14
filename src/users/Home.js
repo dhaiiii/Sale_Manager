@@ -117,6 +117,10 @@ const HomeScreen = () => {
         id: "3",
         image: require("../image/Mau-banner-quang-cao-dep-1.png"),
       },
+      {
+        id: "4",
+        image: require("../image/tt4-1024x406.png"),
+      },
     ];
     setBnData(bannerData);
   }, []);
