@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   View,
   Text,
@@ -86,7 +86,22 @@ const HomeScreen = () => {
   const [dssp, setDssp] = useState(sampleData);
   const [bnData, setBnData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0);
   const navigation = useNavigation();
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const nextIndex = (currentIndex + 1) % bnData.length;
+      setCurrentIndex(nextIndex);
+      scrollViewRef.current.scrollTo({
+        animated: true,
+        x: ScreenWidth * nextIndex,
+      });
+    }, 3000);
+    return () => clearInterval(intervalId);
+  }, [currentIndex, bnData]);
+
+  const scrollViewRef = useRef();
 
   useEffect(() => {
     const bannerData = [
@@ -115,8 +130,6 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.heading}>Danh sách sản phẩm</Text> */}
-
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.searchInput}
@@ -129,47 +142,62 @@ const HomeScreen = () => {
         </TouchableOpacity>
       </View>
 
-      <ScrollView
-        horizontal
-        autoplay={true}
-        contentContainerStyle={{
-          width: ScreenWidth * bnData.length,
-          height: 400,
-        }}
-      >
-        {bnData.map((item) => (
-          <Image
-            key={item.id}
-            source={item.image}
-            resizeMode="stretch"
-            style={styles.bannerImage}
-          />
-        ))}
-      </ScrollView>
-
-      <View style={styles.banner}>
-        <Image
-          source={require("../image/banner-thoi-trang-nam-dep-tm-luxury.jpg")}
-          style={styles.bannerImage}
-        />
-        <Image
-          source={require("../image/Mau-banner-quang-cao-dep-1.png")}
-          style={styles.bannerImage}
-        />
-        <Image
-          source={require("../image/banner-2-1400x630.jpg")}
-          style={styles.bannerImage}
-        />
-        <Image
-          source={require("../image/tt4-1024x406.png")}
-          style={styles.bannerImage}
-        />
-      </View>
-
       <FlatList
         data={dssp}
         keyExtractor={(item) => item.id}
-        numColumns={2} // Set the number of columns to 2
+        numColumns={2}
+        ListHeaderComponent={() => (
+          <View>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              ref={scrollViewRef}
+              pagingEnabled
+              onMomentumScrollEnd={(event) => {
+                const contentOffset = event.nativeEvent.contentOffset;
+                const index = Math.round(contentOffset.x / ScreenWidth);
+                setCurrentIndex(index);
+              }}
+              contentContainerStyle={{
+                width: ScreenWidth * bnData.length,
+                height: 150,
+              }}
+            >
+              {bnData.map((item) => (
+                <Image
+                  key={item.id}
+                  source={item.image}
+                  resizeMode="stretch"
+                  style={{
+                    width: ScreenWidth,
+                    height: 150,
+                    borderRadius: 10,
+                    resizeMode: "cover",
+                  }}
+                />
+              ))}
+            </ScrollView>
+
+            <View style={styles.banner}>
+              <Image
+                source={require("../image/banner-thoi-trang-nam-dep-tm-luxury.jpg")}
+                style={styles.bannerImage}
+              />
+              <Image
+                source={require("../image/Mau-banner-quang-cao-dep-1.png")}
+                style={styles.bannerImage}
+              />
+              <Image
+                source={require("../image/banner-2-1400x630.jpg")}
+                style={styles.bannerImage}
+              />
+              <Image
+                source={require("../image/tt4-1024x406.png")}
+                style={styles.bannerImage}
+              />
+            </View>
+          </View>
+        )}
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => {
@@ -183,7 +211,6 @@ const HomeScreen = () => {
             <View style={styles.productInfo}>
               <Text style={styles.productName}>{item.name}</Text>
               <Text style={styles.productPrice}>{item.price}</Text>
-              {/* <Text style={styles.productAddress}>{item.address}</Text> */}
             </View>
           </TouchableOpacity>
         )}
@@ -199,6 +226,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   banner: {
+    marginTop: 20,
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 10,
@@ -208,7 +236,7 @@ const styles = StyleSheet.create({
     height: 150,
     borderRadius: 10,
     marginHorizontal: 5,
-    resizeMode: "cover", // This ensures that the image covers the entire container
+    resizeMode: "cover",
   },
   productContainer: {
     flexDirection: "column",
@@ -219,8 +247,8 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 10,
     backgroundColor: "white",
-    flex: 1, // This allows the product container to take up the available space
-    maxWidth: "50%", // Maximum width of 50% to ensure two products in a row
+    flex: 1,
+    maxWidth: "50%",
   },
   heading: {
     marginTop: 150,
