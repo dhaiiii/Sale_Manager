@@ -10,7 +10,7 @@ const ProductDetail = ({ route, navigation }) => {
   };
 
   const handleBuy = () => {
-    navigation.navigate("Buy", { buyData: productDetailData });
+    navigation.navigate("Buy");
   };
 
   return (

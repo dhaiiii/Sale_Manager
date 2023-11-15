@@ -10,52 +10,55 @@ import {
 } from "react-native";
 import { Link, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import axios from "axios";
 
 const Add = ({ navigation, route }) => {
-  const [tenSP, settenSP] = useState("");
-  const [giaSP, setgiaSP] = useState(0);
-  const [address, setaddress] = useState("");
-  const [introduce, setintroduce] = useState("");
-  const [linkAnh, setLinkAnh] = useState("");
+  const [Name, setName] = useState("");
+  const [Price, setPrice] = useState(0);
+  const [AddressProduct, setAddressProduct] = useState("");
+  const [Description, setDescription] = useState("");
+  const [imageUrl, setimageUrl] = useState("");
+  const [Category_id, setCategory_id] = useState("");
 
   useEffect(() => {
     if (route.params?.refresh) {
       // Làm mới trường nhập liệu
-      settenSP("");
-      setgiaSP(0);
-      setaddress("");
-      setinfoSP("");
-      setintroduce("");
-      setLinkAnh("");
+      setName("");
+      setPrice(0);
+      setAddressProduct("");
+      setDescription("");
+      setimageUrl("");
+      setCategory_id("");
     }
   }, [route.params?.refresh]);
 
-  const SaveProduct = () => {
-    const objSP = {
-      name: tenSP,
-      price: giaSP,
-      address: address,
-      info: introduce,
-      Image: linkAnh,
-    };
+  const SaveProduct = async () => {
+    try {
+      const response = await axios.post(
+        "http://0.0.0.0:4000/product/addproduct",
+        {
+          Name,
+          Price,
+          AddressProduct,
+          Description,
+          imageUrl,
+          Category_id,
+        }
+      );
 
-    // firestore()
-    //   .collection("addProduct")
-    //   .add(objSP)
-    //   .then(() => {
-    //     Alert.alert("Thành công", "Đã thêm sản phẩm thành công!");
-    //     // Làm mới màn hình Home
-
-    //     navigation.reset({
-    //       index: 0,
-    //       routes: [{ name: "Home" }],
-    //     });
-    //     navigation.navigate("Home");
-    //   })
-    //   .catch((error) => {
-    //     console.error("Lỗi khi thêm sản phẩm:", error);
-    //     Alert.alert("Lỗi", "Đã xảy ra lỗi khi thêm sản phẩm.");
-    //   });
+      console.log(response.data);
+      if (response.status === 200) {
+        console.log("Thêm sản phẩm thành công");
+        Alert.alert("Thêm sản phẩm thành công");
+        navigation.navigate("Home");
+      } else {
+        console.log("Thêm sản phẩm thất bại. Mã lỗi:", response.status);
+        Alert.alert("Lỗi", "Có lỗi xảy ra khi thêm sản phẩm");
+      }
+    } catch (error) {
+      console.log("Lỗi khi thêm sản phẩm:", error);
+      Alert.alert("Lỗi", "Đã xảy ra lỗi khi thêm sản phẩm.");
+    }
   };
 
   return (
@@ -69,32 +72,32 @@ const Add = ({ navigation, route }) => {
         <TextInput
           placeholder="Tên Sp"
           onChangeText={(txt) => {
-            settenSP(txt);
+            setName(txt);
           }}
         />
 
         <TextInput
           placeholder="Giá Sp"
           onChangeText={(txt) => {
-            setgiaSP(txt);
+            setPrice(txt);
           }}
         />
         <TextInput
           placeholder="Địa chỉ"
           onChangeText={(txt) => {
-            setaddress(txt);
+            setAddressProduct(txt);
           }}
         />
         <TextInput
           placeholder="Giới thiệu sản phẩm"
           onChangeText={(txt) => {
-            setintroduce(txt);
+            setDescription(txt);
           }}
         />
         <TextInput
           placeholder="Link ảnh sản phẩm"
           onChangeText={(txt) => {
-            setLinkAnh(txt);
+            setimageUrl(txt);
           }}
         />
       </View>
