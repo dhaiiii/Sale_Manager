@@ -33,16 +33,19 @@ const Add = ({ navigation, route }) => {
   }, [route.params?.refresh]);
 
   const SaveProduct = async () => {
+    const datajson = {
+      Name,
+      Price,
+      AddressProduct,
+      Description,
+      Category_id,
+    };
     try {
       const response = await axios.post(
-        "http://0.0.0.0:4000/product/addproduct",
+        "http://192.168.2.167:4000/product/addproduct",
         {
-          Name,
-          Price,
-          AddressProduct,
-          Description,
+          datajson,
           imageUrl,
-          Category_id,
         }
       );
 
