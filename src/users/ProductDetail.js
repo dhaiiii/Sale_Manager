@@ -2,11 +2,13 @@ import React from "react";
 import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-const ProductDetail = ({ route, navigation }) => {
+const ProductDetail = ({ route }) => {
   const { productDetailData } = route.params;
+  const navigation = useNavigation();
 
   const handleCart = () => {
-    navigation.navigate("Cart");
+    // Truyền thông tin sản phẩm cần thêm vào giỏ hàng và chuyển đến màn hình Cart
+    navigation.navigate("Cart", { productDetailData });
   };
 
   const handleBuy = () => {
@@ -33,14 +35,12 @@ const ProductDetail = ({ route, navigation }) => {
           Giới thiệu sản phẩm:{"\n"} {productDetailData.info}
         </Text>
       </View>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.cartButton} onPress={handleCart}>
-          <Text style={styles.buttonText}>Thêm vào giỏ hàng</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buyButton} onPress={handleBuy}>
-          <Text style={styles.buttonText}>Mua ngay</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity style={styles.cartButton} onPress={handleCart}>
+        <Text style={styles.buttonText}>Thêm vào giỏ hàng</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.buyButton} onPress={handleBuy}>
+        <Text style={styles.buttonText}>Mua ngay</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -63,24 +63,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 10,
   },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: 10,
-  },
   cartButton: {
-    flex: 1,
     backgroundColor: "#f50057",
     borderRadius: 10,
     padding: 10,
-    marginRight: 10,
+    margin: 10,
   },
   buyButton: {
-    flex: 1,
     backgroundColor: "#f50057",
     borderRadius: 10,
     padding: 10,
+    margin: 10,
   },
   buttonText: {
     color: "white",

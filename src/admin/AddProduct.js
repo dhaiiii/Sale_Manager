@@ -6,19 +6,37 @@ import {
   Button,
   Alert,
   ImageView,
+  Image,
   StyleSheet,
+  TouchableOpacity,
 } from "react-native";
 import { Link, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import axios from "axios";
+import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 
 const Add = ({ navigation, route }) => {
   const [Name, setName] = useState("");
   const [Price, setPrice] = useState(0);
   const [AddressProduct, setAddressProduct] = useState("");
   const [Description, setDescription] = useState("");
-  const [imageUrl, setimageUrl] = useState("");
+  const [imageUrl, setimageUrl] = useState(
+    "https://laptop88.vn/media/news/2910_hinhanhmaytinhxachtay4.jpg"
+  );
   const [Category_id, setCategory_id] = useState("");
+
+  const openCamera = async () => {
+    console.log("PRESS ==========>>>>");
+    const result = await launchCamera();
+    setimageUrl(result?.assets[0].uri);
+    console.log("RESULT =====>>>>", result);
+  };
+  const openGallery = async () => {
+    console.log("PRESS ==========>>>>2");
+    const result = await launchImageLibrary();
+    setimageUrl(result?.assets[0].uri);
+    console.log("RESULT =====>>>>", result);
+  };
 
   useEffect(() => {
     if (route.params?.refresh) {
@@ -65,7 +83,7 @@ const Add = ({ navigation, route }) => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text
         style={{ marginLeft: 170, color: "red", fontSize: 20, marginTop: 30 }}
       >
@@ -97,12 +115,19 @@ const Add = ({ navigation, route }) => {
             setDescription(txt);
           }}
         />
-        <TextInput
-          placeholder="Link ảnh sản phẩm"
-          onChangeText={(txt) => {
-            setimageUrl(txt);
+        <Image
+          resizeMode="contain"
+          style={styles.img}
+          source={{
+            uri: imageUrl,
           }}
         />
+        <TouchableOpacity onPress={openCamera} style={styles.Camera}>
+          <Text style={styles.btn}>Open camera</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={openGallery} style={styles.lib}>
+          <Text style={styles.btn}>Open Gallery</Text>
+        </TouchableOpacity>
       </View>
 
       <Button title="Save" onPress={SaveProduct} />
@@ -113,6 +138,9 @@ const Add = ({ navigation, route }) => {
 export default Add;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   productContainer: {
     borderWidth: 1,
     borderColor: "green",
@@ -120,5 +148,32 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 10,
     backgroundColor: "white",
+  },
+  img: {
+    width: "90%",
+    height: 300,
+    alignSelf: "center",
+  },
+  Camera: {
+    alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    width: 100,
+    height: 40,
+    borderRadius: 6,
+    backgroundColor: "green",
+  },
+  lib: {
+    top: 10,
+    alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    width: 100,
+    height: 40,
+    borderRadius: 6,
+    backgroundColor: "green",
+  },
+  btn: {
+    color: "#fff",
   },
 });

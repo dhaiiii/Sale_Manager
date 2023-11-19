@@ -1,42 +1,44 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, Button, StyleSheet, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import ProductDetail from "./ProductDetail"; // Import ProductDetail
 
-const Cart = () => {
+const Cart = ({ route }) => {
   const navigation = useNavigation();
+  const { productDetailData } = route.params || {};
 
-  const cartItems = [
-    {
-      id: "1",
-      Image: "https://laptop88.vn/media/news/2910_hinhanhmaytinhxachtay4.jpg",
-      name: "Laptop siêu gọn",
-      address: "Hà Nội",
-      price: 10,
-    },
-    {
-      id: "2",
-      Image:
-        "https://product.hstatic.net/1000311467/product/au6-18_6bb873d905414036bd60c6af4390f7a2_master.jpg",
-      name: "Quần âu thời trang",
-      address: "Hà Nội",
-      price: 15,
-    },
-    {
-      id: "3",
-      Image:
-        "https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg",
-      name: "Áo phông siêu đẹp",
-      address: "Hà Nội",
-      price: 20,
-    },
-  ];
+  const [cartItems, setCartItems] = useState([]);
+  // const [addedProduct, setAddedProduct] = useState(null);
 
-  // Calculate the total price
+  useEffect(() => {
+    // Kiểm tra xem có sản phẩm được truyền từ ProductDetail không
+    if (productDetailData) {
+      setCartItems((prevItems) => [...prevItems, productDetailData]);
+      // setAddedProduct(productDetailData);
+    }
+  }, [productDetailData]); // Dùng effect để theo dõi sự thay đổi của productDetailData
+
+  const handleBuy = () => {
+    navigation.navigate("Buy");
+  };
+  const handleRemoveItem = (itemId) => {
+    // Lọc ra các sản phẩm không có itemId để xóa sản phẩm có itemId
+    const updatedCart = cartItems.filter((item) => item.id !== itemId);
+    setCartItems(updatedCart);
+  };
+
   const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
 
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Your Shopping Cart</Text>
+      {/* {addedProduct && (
+        <ProductDetail
+          productDetailData={addedProduct}
+          navigation={navigation}
+          route={route}
+        />
+      )} */}
       <FlatList
         data={cartItems}
         keyExtractor={(item) => item.id}
@@ -48,21 +50,21 @@ const Cart = () => {
               <Text style={styles.itemAddress}>{item.address}</Text>
               <Text style={styles.itemPrice}>${item.price}</Text>
             </View>
+            <Button
+              title="Remove"
+              onPress={() => handleRemoveItem(item.id)}
+              color="#ff4500"
+            />
           </View>
         )}
       />
       <Text style={styles.totalPrice}>Total: ${totalPrice}</Text>
-      <Button
-        title="Checkout"
-        onPress={() => {
-          navigation.navigate("Buy");
-          console.log("Checkout button pressed");
-        }}
-        color="#007bff"
-      />
+      <Button title="Checkout" onPress={handleBuy} color="#007bff" />
     </View>
   );
 };
+
+export default Cart;
 
 const styles = StyleSheet.create({
   container: {
@@ -123,4 +125,30 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Cart;
+// export default Cart;
+
+// const cartItems = [
+//   {
+//     id: "1",
+//     Image: "https://laptop88.vn/media/news/2910_hinhanhmaytinhxachtay4.jpg",
+//     name: "Laptop siêu gọn",
+//     address: "Hà Nội",
+//     price: 10,
+//   },
+//   {
+//     id: "2",
+//     Image:
+//       "https://product.hstatic.net/1000311467/product/au6-18_6bb873d905414036bd60c6af4390f7a2_master.jpg",
+//     name: "Quần âu thời trang",
+//     address: "Hà Nội",
+//     price: 15,
+//   },
+//   {
+//     id: "3",
+//     Image:
+//       "https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg",
+//     name: "Áo phông siêu đẹp",
+//     address: "Hà Nội",
+//     price: 20,
+//   },
+// ];
