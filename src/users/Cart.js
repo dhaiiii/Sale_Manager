@@ -8,15 +8,12 @@ const Cart = ({ route }) => {
   const { productDetailData } = route.params || {};
 
   const [cartItems, setCartItems] = useState([]);
-  // const [addedProduct, setAddedProduct] = useState(null);
 
   useEffect(() => {
-    // Kiểm tra xem có sản phẩm được truyền từ ProductDetail không
     if (productDetailData) {
       setCartItems((prevItems) => [...prevItems, productDetailData]);
-      // setAddedProduct(productDetailData);
     }
-  }, [productDetailData]); // Dùng effect để theo dõi sự thay đổi của productDetailData
+  }, [productDetailData]);
 
   const handleBuy = () => {
     navigation.navigate("Buy");
@@ -32,18 +29,12 @@ const Cart = ({ route }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Your Shopping Cart</Text>
-      {/* {addedProduct && (
-        <ProductDetail
-          productDetailData={addedProduct}
-          navigation={navigation}
-          route={route}
-        />
-      )} */}
+
       <FlatList
         data={cartItems}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <View style={styles.cartItem}>
+          <View key={item.id} style={styles.cartItem}>
             <Image source={{ uri: item.Image }} style={styles.itemImage} />
             <View style={styles.itemInfo}>
               <Text style={styles.itemName}>{item.name}</Text>
@@ -58,8 +49,9 @@ const Cart = ({ route }) => {
           </View>
         )}
       />
+
       <Text style={styles.totalPrice}>Total: ${totalPrice}</Text>
-      <Button title="Checkout" onPress={handleBuy} color="#007bff" />
+      <Button title="Checkout" onPress={handleBuy} color="#f50057" />
     </View>
   );
 };
@@ -124,31 +116,3 @@ const styles = StyleSheet.create({
     color: "#333",
   },
 });
-
-// export default Cart;
-
-// const cartItems = [
-//   {
-//     id: "1",
-//     Image: "https://laptop88.vn/media/news/2910_hinhanhmaytinhxachtay4.jpg",
-//     name: "Laptop siêu gọn",
-//     address: "Hà Nội",
-//     price: 10,
-//   },
-//   {
-//     id: "2",
-//     Image:
-//       "https://product.hstatic.net/1000311467/product/au6-18_6bb873d905414036bd60c6af4390f7a2_master.jpg",
-//     name: "Quần âu thời trang",
-//     address: "Hà Nội",
-//     price: 15,
-//   },
-//   {
-//     id: "3",
-//     Image:
-//       "https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg",
-//     name: "Áo phông siêu đẹp",
-//     address: "Hà Nội",
-//     price: 20,
-//   },
-// ];

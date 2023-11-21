@@ -7,8 +7,8 @@ const ProductDetail = ({ route }) => {
   const navigation = useNavigation();
 
   const handleCart = () => {
-    // Truyền thông tin sản phẩm cần thêm vào giỏ hàng và chuyển đến màn hình Cart
     navigation.navigate("Cart", { productDetailData });
+    route.params.productDetailData = null;
   };
 
   const handleBuy = () => {
@@ -35,12 +35,14 @@ const ProductDetail = ({ route }) => {
           Giới thiệu sản phẩm:{"\n"} {productDetailData.info}
         </Text>
       </View>
-      <TouchableOpacity style={styles.cartButton} onPress={handleCart}>
-        <Text style={styles.buttonText}>Thêm vào giỏ hàng</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.buyButton} onPress={handleBuy}>
-        <Text style={styles.buttonText}>Mua ngay</Text>
-      </TouchableOpacity>
+      <View style={styles.btn}>
+        <TouchableOpacity style={styles.cartButton} onPress={handleCart}>
+          <Text style={styles.buttonText}>Thêm vào giỏ hàng</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.buyButton} onPress={handleBuy}>
+          <Text style={styles.buttonText}>Mua ngay</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -64,21 +66,29 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   cartButton: {
-    backgroundColor: "#f50057",
-    borderRadius: 10,
-    padding: 10,
-    margin: 10,
+    flex: 1, // Chia đều không gian ngang giữa các thành phần con
+    backgroundColor: "#f50057", // Màu nền của nút
+    padding: 10, // Khoảng cách nút và văn bản bên trong
+    marginHorizontal: 5, // Khoảng cách giữa các nút
+    borderRadius: 5,
   },
   buyButton: {
-    backgroundColor: "#f50057",
-    borderRadius: 10,
-    padding: 10,
-    margin: 10,
+    flex: 1, // Chia đều không gian ngang giữa các thành phần con
+    backgroundColor: "#f50057", // Màu nền của nút
+    padding: 10, // Khoảng cách nút và văn bản bên trong
+    marginHorizontal: 5, // Khoảng cách giữa các nút
+    borderRadius: 5,
   },
   buttonText: {
     color: "white",
     textAlign: "center",
     fontWeight: "bold",
+  },
+  btn: {
+    flexDirection: "row", // Đặt hướng của layout là ngang
+    justifyContent: "space-around", // Cân đối các thành phần con
+    alignItems: "center", // Căn giữa theo chiều dọc
+    marginVertical: 10,
   },
 });
 
