@@ -126,7 +126,7 @@ const Add = ({ navigation, route }) => {
         </TouchableOpacity>
       </View>
 
-      <Button title="Save" onPress={SaveProduct} />
+      <Button title="Save" onPress={SaveProduct} color={"#f50057"} />
     </View>
   );
 };
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
   },
   productContainer: {
     borderWidth: 1,
-    borderColor: "green",
+    borderColor: "#f50057",
     borderRadius: 10,
     padding: 10,
     margin: 10,
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 40,
     borderRadius: 6,
-    backgroundColor: "green",
+    backgroundColor: "#f50057",
   },
   btn: {
     color: "#fff",

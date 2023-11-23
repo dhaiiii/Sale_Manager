@@ -20,6 +20,7 @@ import Buys from "./src/users/Buy";
 import OTPScreen from "./src/users/Otp";
 import Otpw from "./src/users/Otpfgpw";
 import ForgotPass from "./src/users/Forgotpassword";
+import SettingScreen from "./src/users/Setting";
 import { View, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -104,21 +105,6 @@ const BottomTabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Info"
-        component={Infomation}
-        options={{
-          tabBarIcon: ({ focused, color, size }) => (
-            <View style={styles.boxIcon}>
-              <MaterialCommunityIcons
-                name="account"
-                color={focused ? "black" : color}
-                size={size}
-              />
-            </View>
-          ),
-        }}
-      />
-      <Tab.Screen
         name="Nofitication"
         component={Notifica}
         options={{
@@ -133,18 +119,16 @@ const BottomTabNavigator = () => {
           ),
         }}
       />
-
       <Tab.Screen
-        name="Logout"
-        component={Logouts}
+        name="Setting"
+        component={SettingScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <View style={styles.boxIcon}>
               <MaterialCommunityIcons
-                name="logout"
+                name="account"
                 color={focused ? "black" : color}
                 size={size}
-                onPress={handleLogout} // Gọi hàm handleLogout khi bấm vào nút Logout
               />
             </View>
           ),
@@ -163,13 +147,16 @@ const App = () => {
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Forgotpw" component={ForgotPassword} />
         <Stack.Screen name="ProductDetail" component={ProductDetail} />
-        {/* <Stack.Screen name="ViewInfo" component={ViewInfo} /> */}
+        <Stack.Screen name="AddProduct" component={Add} />
         <Stack.Screen name="Search" component={Searchs} />
         <Stack.Screen name="Message" component={Messages} />
         <Stack.Screen name="Buy" component={Buys} />
         <Stack.Screen name="Otp" component={OTPScreen} />
         <Stack.Screen name="Otpfgpw" component={Otpw} />
         <Stack.Screen name="ForgotPassword" component={ForgotPass} />
+        <Stack.Screen name="Setting" component={SettingScreen} />
+        <Stack.Screen name="Info" component={Infomation} />
+        <Stack.Screen name="Logout" component={Logouts} />
         <Stack.Screen
           name="Home"
           component={BottomTabNavigator} // Sử dụng BottomTabNavigator là một trong các màn hình

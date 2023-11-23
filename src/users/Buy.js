@@ -128,6 +128,11 @@ const styles = StyleSheet.create({
   buyText: {
     fontSize: 16,
     marginBottom: 10,
+    padding: 10,
+    margin: 10,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: "#f50057",
   },
   buyImage: {
     marginTop: 15,
