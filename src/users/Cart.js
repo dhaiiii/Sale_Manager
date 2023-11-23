@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, Button, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  Button,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import ProductDetail from "./ProductDetail"; // Import ProductDetail
 
@@ -24,6 +32,10 @@ const Cart = ({ route }) => {
     setCartItems(updatedCart);
   };
 
+  const handleProductDetail = (item) => {
+    navigation.navigate("ProductDetail", { productDetailData: item });
+  };
+
   const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
 
   return (
@@ -34,7 +46,11 @@ const Cart = ({ route }) => {
         data={cartItems}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <View key={item.id} style={styles.cartItem}>
+          <TouchableOpacity
+            key={item.id}
+            style={styles.cartItem}
+            onPress={() => handleProductDetail(item)}
+          >
             <Image source={{ uri: item.Image }} style={styles.itemImage} />
             <View style={styles.itemInfo}>
               <Text style={styles.itemName}>{item.name}</Text>
@@ -46,7 +62,7 @@ const Cart = ({ route }) => {
               onPress={() => handleRemoveItem(item.id)}
               color="#ff4500"
             />
-          </View>
+          </TouchableOpacity>
         )}
       />
 

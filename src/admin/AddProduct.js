@@ -13,7 +13,8 @@ import {
 import { Link, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import axios from "axios";
-import { launchCamera, launchImageLibrary } from "react-native-image-picker";
+import { launchImageLibrary } from "react-native-image-picker";
+import * as ImagePicker from "expo-image-picker";
 
 const Add = ({ navigation, route }) => {
   const [Name, setName] = useState("");
@@ -25,17 +26,15 @@ const Add = ({ navigation, route }) => {
   );
   const [Category_id, setCategory_id] = useState("");
 
-  const openCamera = async () => {
-    console.log("PRESS ==========>>>>");
-    const result = await launchCamera();
-    setimageUrl(result?.assets[0].uri);
-    console.log("RESULT =====>>>>", result);
-  };
   const openGallery = async () => {
     console.log("PRESS ==========>>>>2");
-    const result = await launchImageLibrary();
+    const result = await ImagePicker.launchImageLibraryAsync();
     setimageUrl(result?.assets[0].uri);
     console.log("RESULT =====>>>>", result);
+    if (result.cancelled) {
+      // Thay đổi từ khóa "cancelled" thành "canceled"
+      console.log("Chọn ảnh đã bị hủy");
+    }
   };
 
   useEffect(() => {
@@ -122,9 +121,6 @@ const Add = ({ navigation, route }) => {
             uri: imageUrl,
           }}
         />
-        <TouchableOpacity onPress={openCamera} style={styles.Camera}>
-          <Text style={styles.btn}>Open camera</Text>
-        </TouchableOpacity>
         <TouchableOpacity onPress={openGallery} style={styles.lib}>
           <Text style={styles.btn}>Open Gallery</Text>
         </TouchableOpacity>
@@ -153,15 +149,6 @@ const styles = StyleSheet.create({
     width: "90%",
     height: 300,
     alignSelf: "center",
-  },
-  Camera: {
-    alignSelf: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    width: 100,
-    height: 40,
-    borderRadius: 6,
-    backgroundColor: "green",
   },
   lib: {
     top: 10,
