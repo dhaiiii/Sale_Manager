@@ -87,18 +87,17 @@ const Add = ({ navigation, route }) => {
       </Text>
       <View style={styles.productContainer}>
         <TextInput
-          placeholder="Tên Sp"
-          onChangeText={(txt) => {
-            setName(txt);
-          }}
-        />
-        <TextInput
           placeholder="id"
           onChangeText={(txt) => {
             setCategory_id(txt);
           }}
         />
-
+        <TextInput
+          placeholder="Tên Sp"
+          onChangeText={(txt) => {
+            setName(txt);
+          }}
+        />
         <TextInput
           placeholder="Giá Sp"
           onChangeText={(txt) => {
