@@ -48,21 +48,18 @@ const Add = ({ navigation, route }) => {
       setCategory_id("");
     }
   }, [route.params?.refresh]);
+  console.log({
+    imageUrl,
+    datajson: { Name, Price, AddressProduct, Description, Category_id },
+  });
 
   const SaveProduct = async () => {
-    const datajson = {
-      Name,
-      Price,
-      AddressProduct,
-      Description,
-      Category_id,
-    };
     try {
       const response = await axios.post(
-        "http://192.168.2.167:4000/product/addproduct",
+        "http://10.6.52.204:4000/product/addproduct",
         {
-          datajson,
           imageUrl,
+          datajson: { Name, Price, AddressProduct, Description, Category_id },
         }
       );
 
@@ -93,6 +90,12 @@ const Add = ({ navigation, route }) => {
           placeholder="Tên Sp"
           onChangeText={(txt) => {
             setName(txt);
+          }}
+        />
+        <TextInput
+          placeholder="id"
+          onChangeText={(txt) => {
+            setCategory_id(txt);
           }}
         />
 

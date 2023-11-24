@@ -26,10 +26,7 @@ const SettingScreen = () => {
       </TouchableOpacity>
       <TouchableOpacity style={styles.logout} onPress={handleLogout}>
         <View style={styles.itemContainer}>
-          <Image
-            source={require("../image/pngtree-box-logout-icon-vectors-png-image_1737862.jpg")}
-            style={styles.icon}
-          />
+          <Image source={require("../image/logout.jpg")} style={styles.icon} />
           <Text> Logout</Text>
         </View>
       </TouchableOpacity>
