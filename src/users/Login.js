@@ -43,7 +43,7 @@ function LoginScreen() {
     } else {
       try {
         const response = await axios.post(
-          "http://10.6.52.204:4000/users/authenticate",
+          "http://10.6.52.59:4000/users/authenticate",
           {
             username,
             password,

@@ -6,6 +6,7 @@ import { TouchableOpacity } from "react-native";
 import { useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Otp = () => {
   const model = {};
@@ -35,6 +36,17 @@ const Otp = () => {
       clearInterval(interval);
     };
   }, [count]);
+
+  const saveToken = async (token) => {
+    try {
+      // Lưu mã token vào AsyncStorage
+      await AsyncStorage.setItem("token", token);
+      console.log("Mã token đã được lưu:", token);
+    } catch (error) {
+      console.error("Lỗi khi lưu mã token:", error);
+    }
+  };
+
   const otpValidate = async () => {
     let enteredOtp = opt1 + opt2 + opt3 + opt4;
     console.log({
@@ -43,7 +55,7 @@ const Otp = () => {
     });
     try {
       const response = await axios.post(
-        "http://10.6.53.47:4000/users/verifyotp",
+        "http://10.6.52.59:4000/users/verifyotp",
         {
           username: us,
           OtpCode: enteredOtp,
@@ -54,6 +66,9 @@ const Otp = () => {
         // API call was successful
         const data = response.data;
         // Process the data as needed
+        saveToken(data.token);
+        await AsyncStorage.setItem("token", data.token);
+
         Alert.alert("Mã otp đúng");
         navigation.navigate("Home");
       } else {

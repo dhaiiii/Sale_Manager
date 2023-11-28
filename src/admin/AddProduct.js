@@ -15,6 +15,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import axios from "axios";
 import { launchImageLibrary } from "react-native-image-picker";
 import * as ImagePicker from "expo-image-picker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Add = ({ navigation, route }) => {
   const [Name, setName] = useState("");
@@ -48,23 +49,40 @@ const Add = ({ navigation, route }) => {
       setCategory_id("");
     }
   }, [route.params?.refresh]);
-  console.log({
-    imageUrl,
-    datajson: { Name, Price, AddressProduct, Description, Category_id },
-  });
+
+  const datajson = {
+    Name: Name,
+    Price: Price,
+    AddressProduct: AddressProduct,
+    Description: Description,
+    Category_id: Category_id,
+  };
 
   const SaveProduct = async () => {
+    console.log({
+      imageUrl,
+      datajson,
+    });
+
     try {
+      const token = await AsyncStorage.getItem("token");
+
       const response = await axios.post(
-        "http://10.6.52.204:4000/product/addproduct",
+        "http://10.6.52.59:4000/product/addproduct",
         {
           imageUrl,
-          datajson: { Name, Price, AddressProduct, Description, Category_id },
+          datajson,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 
       console.log(response.data);
       if (response.status === 200) {
+        console.log("lỗi");
         console.log("Thêm sản phẩm thành công");
         Alert.alert("Thêm sản phẩm thành công");
         navigation.navigate("Home");
