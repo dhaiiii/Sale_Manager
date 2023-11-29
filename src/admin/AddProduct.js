@@ -18,14 +18,16 @@ import * as ImagePicker from "expo-image-picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Add = ({ navigation, route }) => {
+  const token = route.params?.token;
+
   const [Name, setName] = useState("");
-  const [Price, setPrice] = useState(0);
-  const [AddressProduct, setAddressProduct] = useState("");
+  const [Price, setPrice] = useState();
   const [Description, setDescription] = useState("");
+  const [AddressProduct, setAddressProduct] = useState("");
   const [imageUrl, setimageUrl] = useState(
     "https://laptop88.vn/media/news/2910_hinhanhmaytinhxachtay4.jpg"
   );
-  const [Category_id, setCategory_id] = useState("");
+  const [Category_id, setCategory_id] = useState();
 
   const openGallery = async () => {
     console.log("PRESS ==========>>>>2");
@@ -37,16 +39,19 @@ const Add = ({ navigation, route }) => {
       console.log("Chọn ảnh đã bị hủy");
     }
   };
+  useEffect(() => {
+    console.log("đã truyền qua :", token);
+  }, [token]);
 
   useEffect(() => {
     if (route.params?.refresh) {
       // Làm mới trường nhập liệu
       setName("");
-      setPrice(0);
+      setPrice();
       setAddressProduct("");
       setDescription("");
       setimageUrl("");
-      setCategory_id("");
+      setCategory_id();
     }
   }, [route.params?.refresh]);
 
@@ -62,13 +67,15 @@ const Add = ({ navigation, route }) => {
     console.log({
       imageUrl,
       datajson,
+      token: token,
     });
 
     try {
-      const token = await AsyncStorage.getItem("token");
+      const tokenFromAsyncStorage = await AsyncStorage.getItem("token");
+      console.log("Token đã lấy từ AsyncStorage:", tokenFromAsyncStorage);
 
       const response = await axios.post(
-        "http://10.6.52.59:4000/product/addproduct",
+        "http://10.6.53.107:4000/product/addproduct",
         {
           imageUrl,
           datajson,
@@ -92,6 +99,8 @@ const Add = ({ navigation, route }) => {
       }
     } catch (error) {
       console.log("Lỗi khi thêm sản phẩm:", error);
+      console.log("Status code:", error.response.status);
+      console.log("Error message:", error.response.data.error);
       Alert.alert("Lỗi", "Đã xảy ra lỗi khi thêm sản phẩm.");
     }
   };
@@ -105,11 +114,15 @@ const Add = ({ navigation, route }) => {
       </Text>
       <View style={styles.productContainer}>
         <TextInput
-          placeholder="id"
+          placeholder="ID"
+          keyboardType="numeric" // Thiết lập kiểu bàn phím để chỉ cho phép nhập số
           onChangeText={(txt) => {
-            setCategory_id(txt);
+            // Chuyển giá trị nhập vào thành kiểu int
+            const categoryId = parseInt(txt);
+            setCategory_id(categoryId);
           }}
         />
+
         <TextInput
           placeholder="Tên Sp"
           onChangeText={(txt) => {
@@ -118,10 +131,14 @@ const Add = ({ navigation, route }) => {
         />
         <TextInput
           placeholder="Giá Sp"
+          keyboardType="numeric" // Thiết lập kiểu bàn phím để chỉ cho phép nhập số
           onChangeText={(txt) => {
-            setPrice(txt);
+            // Chuyển giá trị nhập vào thành kiểu float
+            const price = parseFloat(txt);
+            setPrice(price);
           }}
         />
+
         <TextInput
           placeholder="Địa chỉ"
           onChangeText={(txt) => {

@@ -55,7 +55,7 @@ const Otp = () => {
     });
     try {
       const response = await axios.post(
-        "http://10.6.52.59:4000/users/verifyotp",
+        "http://10.6.53.107:4000/users/verifyotp",
         {
           username: us,
           OtpCode: enteredOtp,
@@ -70,7 +70,7 @@ const Otp = () => {
         await AsyncStorage.setItem("token", data.token);
 
         Alert.alert("Mã otp đúng");
-        navigation.navigate("Home");
+        navigation.navigate("AddProduct", { token: data.token });
       } else {
         // API call failed
         Alert.alert("API call failed");

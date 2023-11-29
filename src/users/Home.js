@@ -128,9 +128,26 @@ const HomeScreen = () => {
   const handleSearch = () => {
     // Implement your search logic here
   };
-  // try {
-  //   const response = await axios.post("");
-  // } catch (error) {}
+  // useEffect(() => {
+  //   // Hàm async để gọi API
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         "http://10.6.51.201:4000/product/getimageId",
+  //         {
+  //           // productId,
+  //           // imageId,
+  //         }
+  //       );
+  //       setDssp(response.data);
+  //     } catch (error) {
+  //       console.error("Lỗi khi gọi API:", error);
+  //     }
+  //   };
+
+  //   // Gọi hàm fetchData để lấy dữ liệu từ API
+  //   fetchData();
+  // }, []);
 
   return (
     <View style={styles.container}>
