@@ -60,10 +60,7 @@ function Infomation(route) {
                 setUsername(txt);
               }}
             />
-            <Image
-              source={require("/QLSanPhamm/src/image/sua.png")}
-              style={styles.icon}
-            />
+            <Image source={require("../image/sua.png")} style={styles.icon} />
           </View>
         </View>
         <View style={styles.inputRow}>
@@ -75,10 +72,7 @@ function Infomation(route) {
                 setAddress(txt);
               }}
             />
-            <Image
-              source={require("/QLSanPhamm/src/image/sua.png")}
-              style={styles.icon}
-            />
+            <Image source={require("../image/sua.png")} style={styles.icon} />
           </View>
         </View>
         <View style={styles.inputRow}>
@@ -90,10 +84,7 @@ function Infomation(route) {
                 setAvatar(txt);
               }}
             />
-            <Image
-              source={require("/QLSanPhamm/src/image/sua.png")}
-              style={styles.icon}
-            />
+            <Image source={require("../image/sua.png")} style={styles.icon} />
           </View>
         </View>
         <View style={styles.inputRow}>
@@ -105,10 +96,7 @@ function Infomation(route) {
                 setBirth(txt);
               }}
             />
-            <Image
-              source={require("/QLSanPhamm/src/image/sua.png")}
-              style={styles.icon}
-            />
+            <Image source={require("../image/sua.png")} style={styles.icon} />
           </View>
         </View>
         <View style={styles.inputRow}>
@@ -120,10 +108,7 @@ function Infomation(route) {
                 setEmail(txt);
               }}
             />
-            <Image
-              source={require("/QLSanPhamm/src/image/sua.png")}
-              style={styles.icon}
-            />
+            <Image source={require("../image/sua.png")} style={styles.icon} />
           </View>
         </View>
         <View style={styles.inputRow}>
@@ -135,10 +120,7 @@ function Infomation(route) {
                 setPhone(txt);
               }}
             />
-            <Image
-              source={require("/QLSanPhamm/src/image/sua.png")}
-              style={styles.icon}
-            />
+            <Image source={require("../image/sua.png")} style={styles.icon} />
           </View>
         </View>
         <View style={styles.inputRow}>
@@ -150,15 +132,17 @@ function Infomation(route) {
                 setGender(txt);
               }}
             />
-            <Image
-              source={require("/QLSanPhamm/src/image/sua.png")}
-              style={styles.icon}
-            />
+            <Image source={require("../image/sua.png")} style={styles.icon} />
           </View>
         </View>
       </View>
 
-      <Button title="Save" onPress={SaveInfo} style={styles.btn} />
+      <Button
+        title="Save"
+        onPress={SaveInfo}
+        style={styles.btn}
+        color="#f50057"
+      />
     </View>
   );
 }
@@ -168,7 +152,7 @@ export default Infomation;
 const styles = StyleSheet.create({
   productContainer: {
     borderWidth: 1,
-    borderColor: "green",
+    borderColor: "#f50057",
     borderRadius: 10,
     padding: 10,
     margin: 10,
@@ -186,7 +170,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     borderWidth: 1,
-    borderColor: "green",
+    borderColor: "#f50057",
     borderRadius: 5,
     padding: 10,
     margin: 5,
@@ -197,6 +181,7 @@ const styles = StyleSheet.create({
     height: 20,
   },
   btn: {
+    backgroundColor: "#f50057",
     width: 100,
   },
 });
