@@ -10,13 +10,22 @@ import {
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import { useNavigation } from "@react-navigation/native";
 
 const Buys = () => {
+  const navigation = useNavigation("");
+
+  const handleMap = () => {
+    navigation.navigate("Maps");
+  };
+  const handleOder = () => {
+    navigation.navigate("Oders");
+  };
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Thanh toán</Text>
+      <Text style={styles.title}>Đặt hàng</Text>
       <View style={styles.buyContainer}>
-        <TouchableOpacity style={styles.info} onPress={""}>
+        <TouchableOpacity style={styles.info} onPress={handleMap}>
           <View style={styles.itemContainer}>
             <Icon name="place" size={20} />
             <Text style={styles.boldText}>Địa chỉ nhận hàng:</Text>
@@ -39,7 +48,7 @@ const Buys = () => {
             <Text style={styles.boldText}>Giá sản phẩm:</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.info} onPress={""}>
+        <TouchableOpacity style={styles.info} onPress={handleOder}>
           <View style={styles.itemContainer}>
             <Icon name="payment" size={20} />
             <Text style={styles.boldText}>Phương thức thanh toán</Text>
@@ -56,7 +65,7 @@ const Buys = () => {
           style={styles.buttonContainer}
           onPress={() => alert("Payment pressed")}
         >
-          <Text style={styles.buttonText}>Thanh toán</Text>
+          <Text style={styles.buttonText}>Đặt hàng</Text>
         </TouchableOpacity>
       </View>
     </View>

@@ -20,6 +20,8 @@ import Buys from "./src/users/Buy";
 import OTPScreen from "./src/users/Otp";
 import Otpw from "./src/users/Otpfgpw";
 import ForgotPass from "./src/users/Forgotpassword";
+import Map from "./src/users/Maps";
+import Oder from "./src/users/Oders";
 import SettingScreen from "./src/users/Setting";
 import { View, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -157,6 +159,8 @@ const App = () => {
         <Stack.Screen name="Setting" component={SettingScreen} />
         <Stack.Screen name="Info" component={Infomation} />
         <Stack.Screen name="Logout" component={Logouts} />
+        <Stack.Screen name="Maps" component={Map} />
+        <Stack.Screen name="Oders" component={Oder} />
         <Stack.Screen
           name="Home"
           component={BottomTabNavigator} // Sử dụng BottomTabNavigator là một trong các màn hình

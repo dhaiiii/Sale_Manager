@@ -19,9 +19,14 @@ const SettingScreen = () => {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity style={styles.bn}>
+        <View style={styles.itemContainer}>
+          <Text style={{ color: "white" }}> Thông tin cá nhân</Text>
+        </View>
+      </TouchableOpacity>
       <TouchableOpacity style={styles.info} onPress={handleInfo}>
         <View style={styles.itemContainer}>
-          <Image source={require("../image/images.png")} style={styles.icon} />
+          <Icon name="person" size={20} />
           <Text style={styles.boldText}> Thông tin cá nhân</Text>
         </View>
       </TouchableOpacity>
@@ -70,7 +75,7 @@ const SettingScreen = () => {
       </TouchableOpacity>
       <TouchableOpacity style={styles.logout} onPress={handleLogout}>
         <View style={styles.itemContainer}>
-          <Image source={require("../image/logout.jpg")} style={styles.icon} />
+          <Icon name="logout" size={20} />
           <Text style={styles.boldText}> Logout</Text>
         </View>
       </TouchableOpacity>
@@ -82,6 +87,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 30,
+  },
+  bn: {
+    height: 100,
+    fontWeight: "bold", // Chữ đậm
+    padding: 10,
+    margin: 10,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: "#f50057",
+    backgroundColor: "#f50057",
+    color: "white",
   },
   txt: {
     flexDirection: "row",
