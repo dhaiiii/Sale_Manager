@@ -36,13 +36,13 @@ const Buys = () => {
             />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.info} onPress={""}>
+        <TouchableOpacity style={styles.info}>
           <View style={styles.itemContainer}>
             <Icon name="shopping-cart" size={20} />
             <Text style={styles.boldText}>Tên sản phẩm:</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.info} onPress={""}>
+        <TouchableOpacity style={styles.info}>
           <View style={styles.itemContainer}>
             <Icon name="attach-money" size={20} />
             <Text style={styles.boldText}>Giá sản phẩm:</Text>
