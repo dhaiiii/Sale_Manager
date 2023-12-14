@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
+import { useRoute } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialIcons";
@@ -14,6 +15,8 @@ import { useNavigation } from "@react-navigation/native";
 
 const Buys = () => {
   const navigation = useNavigation("");
+  const route = useRoute();
+  const { productDetailData } = route.params;
 
   const handleMap = () => {
     navigation.navigate("Maps");
@@ -28,7 +31,9 @@ const Buys = () => {
         <TouchableOpacity style={styles.info} onPress={handleMap}>
           <View style={styles.itemContainer}>
             <Icon name="place" size={20} />
-            <Text style={styles.boldText}>Địa chỉ nhận hàng:</Text>
+            <Text style={styles.boldText}>
+              Địa chỉ nhận hàng : {productDetailData.address}
+            </Text>
             <Icon
               name="arrow-forward-ios"
               size={20}
@@ -39,13 +44,17 @@ const Buys = () => {
         <TouchableOpacity style={styles.info}>
           <View style={styles.itemContainer}>
             <Icon name="shopping-cart" size={20} />
-            <Text style={styles.boldText}>Tên sản phẩm:</Text>
+            <Text style={styles.boldText}>
+              Tên sản phẩm : {productDetailData.name}
+            </Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.info}>
           <View style={styles.itemContainer}>
             <Icon name="attach-money" size={20} />
-            <Text style={styles.boldText}>Giá sản phẩm:</Text>
+            <Text style={styles.boldText}>
+              Giá sản phẩm : {productDetailData.price}
+            </Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.info} onPress={handleOder}>

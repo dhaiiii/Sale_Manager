@@ -9,7 +9,6 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Otp = () => {
-  const model = {};
   const route = useRoute();
   const navigation = useNavigation();
   const { us } = route.params;
@@ -24,18 +23,28 @@ const Otp = () => {
   const [opt4, setOtp4] = useState("");
   const [count, setCount] = useState(60);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (count == 0) {
-        clearInterval(interval);
+  const resendOtp = async () => {
+    try {
+      const response = await axios.post(
+        "http://10.6.52.54:4000/users/verifyotp",
+        {
+          username: us,
+        }
+      );
+
+      if (response.status === 200) {
+        // API call was successful
+        setCount(60); // Đặt lại đồng hồ đếm về 60 giây
+        Alert.alert("Mã OTP mới đã được gửi.");
       } else {
-        setCount(count - 1);
+        // API call failed
+        Alert.alert("Gửi lại mã OTP thất bại.");
       }
-    }, 1000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, [count]);
+    } catch (error) {
+      console.error("API call error:", error);
+      Alert.alert("Lỗi khi gọi API.");
+    }
+  };
 
   const saveToken = async (token) => {
     try {
@@ -55,7 +64,7 @@ const Otp = () => {
     });
     try {
       const response = await axios.post(
-        "http://10.6.53.107:4000/users/verifyotp",
+        "http://10.6.52.54:4000/users/verifyotp",
         {
           username: us,
           OtpCode: enteredOtp,
@@ -81,8 +90,21 @@ const Otp = () => {
     }
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (count === 0) {
+        clearInterval(interval);
+      } else {
+        setCount(count - 1);
+      }
+    }, 1000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [count]);
+
   return (
-    <View style={StyleSheet.conatainer}>
+    <View style={styles.container}>
       <Text style={styles.title}>OTP Verification</Text>
       <View style={styles.otpView}>
         <TextInput
@@ -161,17 +183,17 @@ const Otp = () => {
           style={{
             fontSize: 20,
             fontWeight: "700",
-            color: count == 0 ? "blue" : "gray",
+            color: count === 0 ? "blue" : "gray",
           }}
           onPress={() => {
-            setCount(60);
+            resendOtp();
           }}
         >
           Resend
         </Text>
         {count !== 0 && (
           <Text style={{ marginLeft: 20, fontSize: 20 }}>
-            {count + "seconds"}
+            {count + " seconds"}
           </Text>
         )}
       </View>
@@ -203,7 +225,7 @@ const Otp = () => {
 export default Otp;
 
 const styles = StyleSheet.create({
-  conatainer: {
+  container: {
     flex: 1,
   },
   title: {

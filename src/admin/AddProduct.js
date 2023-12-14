@@ -64,43 +64,47 @@ const Add = ({ navigation, route }) => {
   };
 
   const SaveProduct = async () => {
-    console.log({
-      imageUrl,
-      datajson,
-      token: token,
-    });
+    console.log("Datajson:", datajson);
+    console.log("ImageUrl:", imageUrl);
 
     try {
       const tokenFromAsyncStorage = await AsyncStorage.getItem("token");
       console.log("Token đã lấy từ AsyncStorage:", tokenFromAsyncStorage);
 
       const response = await axios.post(
-        "http://10.6.53.107:4000/product/addproduct",
+        "http://10.6.52.54:4000/product/addproduct",
         {
           imageUrl,
           datajson,
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${tokenFromAsyncStorage}`,
           },
         }
       );
 
-      console.log(response.data);
+      console.log("Server Response:", response);
+
       if (response.status === 200) {
-        console.log("lỗi");
         console.log("Thêm sản phẩm thành công");
         Alert.alert("Thêm sản phẩm thành công");
         navigation.navigate("Home");
       } else {
         console.log("Thêm sản phẩm thất bại. Mã lỗi:", response.status);
+        console.log("Error message:", response.data.error);
         Alert.alert("Lỗi", "Có lỗi xảy ra khi thêm sản phẩm");
       }
     } catch (error) {
       console.log("Lỗi khi thêm sản phẩm:", error);
-      console.log("Status code:", error.response.status);
-      console.log("Error message:", error.response.data.error);
+      console.log(
+        "Status code:",
+        error.response ? error.response.status : "N/A"
+      );
+      console.log(
+        "Error message:",
+        error.response ? error.response.data.error : "N/A"
+      );
       Alert.alert("Lỗi", "Đã xảy ra lỗi khi thêm sản phẩm.");
     }
   };

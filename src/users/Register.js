@@ -36,7 +36,7 @@ function RegisterScreen() {
       console.log("handel register");
       try {
         const response = await axios.post(
-          "http://10.6.53.47:4000/users/register",
+          "http://10.6.53.206:4000/users/register",
           {
             email,
             username,

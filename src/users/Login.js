@@ -43,7 +43,7 @@ function LoginScreen() {
     } else {
       try {
         const response = await axios.post(
-          "http://10.6.53.107:4000/users/authenticate",
+          "http://10.6.52.54:4000/users/authenticate",
           {
             username,
             password,
@@ -108,9 +108,11 @@ function LoginScreen() {
           <Text style={styles.buttonText}>Log in</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={handleRegister}>
-          <Text style={styles.registerLink}>Sign up</Text>
-        </TouchableOpacity>
+        <View>
+          <TouchableOpacity onPress={handleRegister}>
+            <Text style={styles.registerLink}>Sign up</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </ImageBackground>
   );

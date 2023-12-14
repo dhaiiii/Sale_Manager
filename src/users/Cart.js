@@ -9,34 +9,67 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import ProductDetail from "./ProductDetail"; // Import ProductDetail
+import ProductDetail from "./ProductDetail";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 const Cart = ({ route }) => {
   const navigation = useNavigation();
   const { productDetailData } = route.params || {};
 
   const [cartItems, setCartItems] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     if (productDetailData) {
-      setCartItems((prevItems) => [...prevItems, productDetailData]);
+      setCartItems((prevItems) => [
+        ...prevItems,
+        { ...productDetailData, quantity: 1 },
+      ]);
     }
   }, [productDetailData]);
+
+  useEffect(() => {
+    const updatedTotalPrice = cartItems.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+    setTotalPrice(updatedTotalPrice);
+  }, [cartItems]);
 
   const handleBuy = () => {
     navigation.navigate("Buy");
   };
+
   const handleRemoveItem = (itemId) => {
-    // Lọc ra các sản phẩm không có itemId để xóa sản phẩm có itemId
-    const updatedCart = cartItems.filter((item) => item.id !== itemId);
+    const updatedCart = cartItems
+      .map((item) => {
+        if (item.id === itemId) {
+          if (item.quantity > 1) {
+            return { ...item, quantity: item.quantity - 1 };
+          }
+          return null;
+        }
+        return item;
+      })
+      .filter(Boolean);
+
+    setCartItems(updatedCart);
+  };
+
+  const handleIncreaseQuantity = (itemId) => {
+    const updatedCart = cartItems.map((item) => {
+      if (item.id === itemId) {
+        return { ...item, quantity: item.quantity + 1 };
+      }
+      return item;
+    });
+
     setCartItems(updatedCart);
   };
 
   const handleProductDetail = (item) => {
     navigation.navigate("ProductDetail", { productDetailData: item });
   };
-
-  const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
 
   return (
     <View style={styles.container}>
@@ -57,10 +90,20 @@ const Cart = ({ route }) => {
               <Text style={styles.itemAddress}>{item.address}</Text>
               <Text style={styles.itemPrice}>${item.price}</Text>
             </View>
-            <Button
-              title="Remove"
+            <View style={styles.quantityContainer}>
+              <TouchableOpacity onPress={() => handleRemoveItem(item.id)}>
+                <Icon name="remove" size={20} style={styles.quantityButton} />
+              </TouchableOpacity>
+              <Text style={styles.quantity}>{item.quantity}</Text>
+              <TouchableOpacity onPress={() => handleIncreaseQuantity(item.id)}>
+                <Icon name="add" size={20} style={styles.quantityButton} />
+              </TouchableOpacity>
+            </View>
+            <Icon
+              name="close"
+              size={20}
               onPress={() => handleRemoveItem(item.id)}
-              color="#ff4500"
+              style={{ marginLeft: "auto", color: "red" }}
             />
           </TouchableOpacity>
         )}
@@ -130,5 +173,19 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 16,
     color: "#333",
+  },
+  quantityContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginLeft: "auto",
+  },
+  quantityButton: {
+    color: "#007BFF",
+    marginLeft: 5,
+    marginRight: 5,
+  },
+  quantity: {
+    fontSize: 16,
+    marginHorizontal: 8,
   },
 });

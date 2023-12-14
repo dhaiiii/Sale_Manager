@@ -115,11 +115,11 @@ const HomeScreen = () => {
       },
       {
         id: "3",
-        image: require("../image/Mau-banner-quang-cao-dep-1.png"),
+        image: require("../image/banner-thoi-trang.jpg"),
       },
       {
         id: "4",
-        image: require("../image/tt4-1024x406.png"),
+        image: require("../image/banner-do-shop-thoi-trang-nam-tphcm-tmluxury.jpg"),
       },
     ];
     setBnData(bannerData);

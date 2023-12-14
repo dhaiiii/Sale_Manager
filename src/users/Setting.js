@@ -21,7 +21,16 @@ const SettingScreen = () => {
     <View style={styles.container}>
       <TouchableOpacity style={styles.bn}>
         <View style={styles.itemContainer}>
-          <Text style={{ color: "white" }}> Thông tin cá nhân</Text>
+          <View style={styles.profileContainer}>
+            <Image
+              style={styles.profileImage}
+              source={require("../image/anh6.jpg")} // Thay đổi đường dẫn đến ảnh của bạn
+            />
+            <View style={styles.profileInfo}>
+              <Text style={{ color: "white" }}>Đỗ Hải</Text>
+              {/* Các thông tin cá nhân khác */}
+            </View>
+          </View>
         </View>
       </TouchableOpacity>
       <TouchableOpacity style={styles.info} onPress={handleInfo}>
@@ -87,6 +96,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 30,
+  },
+  profileContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  profileImage: {
+    width: 80, // Điều chỉnh kích thước ảnh
+    height: 80,
+    borderRadius: 50, // Để tạo hình tròn, hãy đặt borderRadius là một nửa của chiều cao hoặc chiều rộng
+    marginRight: 10,
+  },
+
+  profileInfo: {
+    flex: 1, // Để nội dung có thể mở rộng để lấp đầy không gian còn lại
   },
   bn: {
     height: 100,
