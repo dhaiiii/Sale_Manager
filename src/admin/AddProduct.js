@@ -72,7 +72,7 @@ const Add = ({ navigation, route }) => {
       console.log("Token đã lấy từ AsyncStorage:", tokenFromAsyncStorage);
 
       const response = await axios.post(
-        "http://10.6.52.54:4000/product/addproduct",
+        "http://10.6.44.49:4000/product/addproduct",
         {
           imageUrl,
           datajson,
