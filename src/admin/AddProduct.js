@@ -65,10 +65,6 @@ const Add = ({ navigation, route }) => {
     };
 
     try {
-      console.log(datajson);
-      console.log(imageUrl);
-      console.log(token);
-
       const response = await axios.post(
         "http://172.20.10.2:4000/product/addproduct",
         {

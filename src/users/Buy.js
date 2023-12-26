@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   },
   info: {
     width: 320,
-    height: 50,
+    height: 60,
     fontWeight: "bold", // Chữ đậm
     padding: 10,
     margin: 10,
