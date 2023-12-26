@@ -1,12 +1,9 @@
-import React, { useRef, useState } from "react";
-import { Alert, TextInput, Touchable } from "react-native";
+import React, { useRef, useState, useEffect } from "react";
+import { Alert, TextInput, TouchableOpacity } from "react-native";
 import { View, Text, StyleSheet } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { TouchableOpacity } from "react-native";
-import { useEffect } from "react";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SecureStore from "expo-secure-store";
 
 const Otp = () => {
   const route = useRoute();
@@ -48,8 +45,8 @@ const Otp = () => {
 
   const saveToken = async (token) => {
     try {
-      // Lưu mã token vào AsyncStorage
-      await AsyncStorage.setItem("token", token);
+      // Lưu mã token vào SecureStore
+      await SecureStore.setItemAsync("token", token);
       console.log("Mã token đã được lưu:", token);
     } catch (error) {
       console.error("Lỗi khi lưu mã token:", error);
@@ -76,7 +73,7 @@ const Otp = () => {
         const data = response.data;
         // Process the data as needed
         saveToken(data.token);
-        await AsyncStorage.setItem("token", data.token);
+        await SecureStore.setItemAsync("token", data.token);
 
         Alert.alert("Mã otp đúng");
         navigation.navigate("Home");

@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import axios from "axios";
 import * as ImagePicker from "expo-image-picker";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SecureStore from "expo-secure-store";
 
 const Add = ({ navigation, route }) => {
   const [token, setToken] = useState("");
@@ -25,23 +25,23 @@ const Add = ({ navigation, route }) => {
   const [Category_id, setCategory_id] = useState();
 
   useEffect(() => {
-    // Lấy token từ AsyncStorage khi màn hình được tạo
+    // Lấy token từ SecureStore khi màn hình được tạo
     retrieveToken();
   }, []);
 
   const retrieveToken = async () => {
     try {
-      // Lấy giá trị từ AsyncStorage
-      const storedToken = await AsyncStorage.getItem("token");
+      // Lấy giá trị từ SecureStore
+      const storedToken = await SecureStore.getItemAsync("token");
 
       if (storedToken !== null) {
         // Nếu giá trị tồn tại, cập nhật state
         setToken(storedToken);
       } else {
-        console.log("Không tìm thấy token trong AsyncStorage.");
+        console.log("Không tìm thấy token trong SecureStore.");
       }
     } catch (error) {
-      console.error("Lỗi khi lấy token từ AsyncStorage:", error);
+      console.error("Lỗi khi lấy token từ SecureStore:", error);
     }
   };
 
@@ -54,7 +54,7 @@ const Add = ({ navigation, route }) => {
   };
 
   const SaveProduct = async () => {
-    console.log("Mã token được lấy AsyncStorage:", token);
+    console.log("Mã token được lấy từ SecureStore:", token);
 
     const datajson = {
       Name: Name,
